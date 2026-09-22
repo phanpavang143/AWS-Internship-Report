@@ -6,7 +6,7 @@ chapter: false
 ---
 
     
-# Internship Report
+# AWS Internship Report
 
 
 ### Student Information:
@@ -28,7 +28,7 @@ chapter: false
 
 &emsp; **Internship Duration:** From 03/08/2026 to 06-09-2026
 
-![Your profile picture](/images/avatar.png)
+![Profile photo of Phàn Pà Vảng](/images/Anhdaidien.jpg)
 
 ### Report Content
 
