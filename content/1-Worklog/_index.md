@@ -9,7 +9,7 @@ pre: " <b> 1. </b> "
 
 Below is my detailed worklog across the 5 weeks of the First Cloud AI Journey internship program:
 
-**Week 1:** [Looking for an internship place](1.1-week1/)
+**Week 1:** [AWS Architecture Overview, Practice Account Setup, and Core Services Familiarization](1.1-week1/)
 
 **Week 2:** [Overview of AWS architecture and create a practice account](1.2-week2/)
 

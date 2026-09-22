@@ -9,7 +9,7 @@ pre: " <b> 1. </b> "
 
 Dưới đây là nhật ký công việc chi tiết của tôi qua 5 tuần thực hiện chương trình thực tập First Cloud AI Journey:
 
-**Tuần 1:** [Tìm kiếm nơi thực tập](1.1-week1/)
+**Tuần 1:** [Tìm hiểu tổng quan kiến trúc AWS, lập tài khoản thực hành và làm quen với AWS Core Services: EC2, S3, IAM](1.1-week1/)
 
 **Tuần 2:** [Tìm hiểu tổng quan kiến trúc AWS và lập tài khoản thực hành](1.2-week2/)
 
