@@ -7,13 +7,13 @@ pre: " <b> 1.1. </b> "
 ---
 
 ### Week 1 Objectives:
-* Find and contact a suitable internship organization.
+* Gain an overview of AWS architecture, create a practice account, and familiarize yourself with core AWS services: EC2, S3, and IAM..
 
 ### Tasks to be carried out this week:
 | Day | Task | Start Date | Completion Date | Reference Material |
 | --- | --- | --- | --- | --- |
-| 2 | Search for information and prepare internship application | 28/04/2026 | 28/04/2026 | |
-| 3 | Contact companies and find suitable internship positions | 28/04/2026 | 30/04/2026 | |
+| 2 | Overview of AWS Architecture | 03/08/2026 | 03/08/2026 | |
+| 3 | Set up a practice account and familiarize yourself with AWS Core Services: EC2, S3, and IAM. | 04/08/2026 | 08/08/2026 | |
 
 ### Week 1 Achievements:
 * Currently searching and preparing applications for internship positions.

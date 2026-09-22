@@ -14,10 +14,10 @@ pre: " <b> 1.3. </b> "
 ### Các công việc cần triển khai trong tuần này:
 | Thứ | Công việc | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu |
 | --- | --- | --- | --- | --- |
-| 2 | Tìm hiểu AWS Core Services: EC2, S3, IAM | 09/05/2026 | 11/05/2026 | <https://cloudjourney.awsstudygroup.com/> |
-| 3 | Thực hành tạo EC2 instance, kết nối SSH | 11/05/2026 | 12/05/2026 | <https://cloudjourney.awsstudygroup.com/> |
-| 4 | Upload & quản lý file trên S3 | 13/05/2026 | 14/05/2026 | <https://cloudjourney.awsstudygroup.com/> |
-| 5 | Tìm hiểu IAM User, Role, Policy và cách phân quyền | 14/05/2026 | 15/05/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| 2 | Tìm hiểu AWS Core Services: EC2, S3, IAM | 09/08/2026 | 11/08/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| 3 | Thực hành tạo EC2 instance, kết nối SSH | 11/08/2026 | 12/08/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| 4 | Upload & quản lý file trên S3 | 13/08/2026 | 14/08/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| 5 | Tìm hiểu IAM User, Role, Policy và cách phân quyền | 14/08/2026 | 15/08/2026 | <https://cloudjourney.awsstudygroup.com/> |
 
 ### Kết quả đạt được tuần 3:
 * Nắm vững kiến thức về EC2, S3 và IAM.

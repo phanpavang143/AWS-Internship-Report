@@ -14,11 +14,11 @@ pre: " <b> 1.4. </b> "
 ### Tasks to be carried out this week:
 | Day | Task | Start Date | Completion Date | Reference Material |
 | --- | --- | --- | --- | --- |
-| 2 | Learn about AWS Networking: VPC, Subnet, Internet Gateway | 16/05/2026 | 18/05/2026 | <https://cloudjourney.awsstudygroup.com/> |
-| 3 | Practice creating VPC and configuring Public/Private Subnets | 18/05/2026 | 19/05/2026 | <https://cloudjourney.awsstudygroup.com/> |
-| 4 | Configure Security Groups and Network ACLs for EC2 | 19/05/2026 | 20/05/2026 | <https://cloudjourney.awsstudygroup.com/> |
-| 5 | Practice connecting EC2 within VPC and testing Internet access | 21/05/2026 | 21/05/2026 | <https://cloudjourney.awsstudygroup.com/> |
-| 6 | Learn about Elastic IP and Route Tables on AWS | 22/05/2026 | 22/05/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| 2 | Learn about AWS Networking: VPC, Subnet, Internet Gateway | 16/08/2026 | 18/08/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| 3 | Practice creating VPC and configuring Public/Private Subnets | 18/08/2026 | 19/08/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| 4 | Configure Security Groups and Network ACLs for EC2 | 19/08/2026 | 20/08/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| 5 | Practice connecting EC2 within VPC and testing Internet access | 21/08/2026 | 21/08/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| 6 | Learn about Elastic IP and Route Tables on AWS | 22/08/2026 | 22/08/2026 | <https://cloudjourney.awsstudygroup.com/> |
 
 ### Week 4 Achievements:
 * Mastered basic networking concepts on AWS (VPC, Subnets, Route Tables, IGW).

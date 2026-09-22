@@ -13,9 +13,9 @@ pre: " <b> 1.2. </b> "
 ### Các công việc cần triển khai trong tuần này:
 | Thứ | Công việc | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu |
 | --- | --- | --- | --- | --- |
-| 2 | Tìm hiểu tổng quan kiến trúc AWS và lập tài khoản thực hành | 05/05/2026 | 05/05/2026 | <https://cloudjourney.awsstudygroup.com/> |
-| 3 | Thực hiện các bài học về AWS, Cloud | 06/05/2026 | 08/05/2026 | <https://cloudjourney.awsstudygroup.com/> |
-| 4 | Tìm hiểu các lý thuyết liên quan đến Cloud Computing | 08/05/2026 | 11/05/2026 | |
+| 2 | Tìm hiểu tổng quan kiến trúc AWS và lập tài khoản thực hành | 03/08/2026 | 03/08/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| 3 | Thực hiện các bài học về AWS, Cloud | 06/08/2026 | 08/08/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| 4 | Tìm hiểu các lý thuyết liên quan đến Cloud Computing | 08/08/2026 | 11/08/2026 | |
 
 ### Kết quả đạt được tuần 2:
 * Hiểu tổng quan kiến trúc AWS và tạo tài khoản thực hành thành công.
