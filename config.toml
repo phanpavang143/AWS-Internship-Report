@@ -25,6 +25,8 @@ home = [ "HTML", "RSS", "JSON"]
 [Languages.en]
 title = "AWS Internship Report"
 weight = 1
+
+[Languages.en.params]
 label = "English"
 
 [[Languages.en.menu.shortcuts]]
@@ -42,6 +44,8 @@ weight = 20
 [Languages.vi]
 title = "Báo cáo thực tập AWS"
 weight = 2
+
+[Languages.vi.params]
 label = "Tiếng Việt"
 
 [[Languages.vi.menu.shortcuts]]
