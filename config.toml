@@ -15,15 +15,15 @@ home = [ "HTML", "RSS", "JSON"]
   themeVariant = "workshop"
   # Git hub repo link
   editURL = ""
-  description = ""
-  author = "thienlh@thienlu.com"
+  description = "AWS Internship Report by Phàn Pà Vảng"
+  author = "Phàn Pà Vảng <phanvang112@gmail.com>"
   showVisitedLinks = true
   disableBreadcrumb = false
   disableNextPrev = false
   
 [Languages]
 [Languages.en]
-title = "Internship Report"
+title = "AWS Internship Report"
 weight = 1
 label = "English"
 
@@ -40,7 +40,7 @@ url = "https://www.facebook.com/groups/awsstudygroupfcj"
 weight = 20
 
 [Languages.vi]
-title = "Báo cáo thực tập"
+title = "Báo cáo thực tập AWS"
 weight = 2
 label = "Tiếng Việt"
 
