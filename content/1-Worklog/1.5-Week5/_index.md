@@ -7,20 +7,18 @@ pre: " <b> 1.5. </b> "
 ---
 
 ### Week 5 Objectives:
-* Study database services on AWS: AWS RDS (relational) and DynamoDB (non-relational).
-* Practice creating, configuring, and connecting databases from an EC2 instance.
-* Understand backup mechanisms and data snapshots on AWS.
+*Execute a comprehensive project on AWS, applying the knowledge gained and finalizing the internship deliverables.
 
 ### Tasks to be carried out this week:
 | Day | Task | Start Date | Completion Date | Reference Material |
 | --- | --- | --- | --- | --- |
-| 2 | Learn about AWS RDS and DynamoDB databases | 24/08/2026 | 26/08/2026 | <https://cloudjourney.awsstudygroup.com/> |
-| 3 | Practice creating and configuring relational databases on AWS RDS | 26/08/2026 | 27/08/2026 | <https://cloudjourney.awsstudygroup.com/> |
-| 4 | Connect EC2 instance to RDS database and verify connectivity | 28/08/2026 | 28/08/2026 | <https://cloudjourney.awsstudygroup.com/> |
-| 5 | Research database backup procedures and snapshotting on AWS | 29/08/2026 | 29/08/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| 2 | Execute a comprehensive project on AWS | 24/08/2026 | 28/08/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| 3 | Apply the knowledge gained and finalize the internship results (RDS MySQL/PostgreSQL).| 29/08/2026 | 05/09/2026 | <https://cloudjourney.awsstudygroup.com/> |
+
 
 ### Week 5 Achievements:
-* Gained clear differentiation of the use cases for AWS RDS and DynamoDB.
-* Successfully initialized and configured a SQL database instance inside RDS.
-* Built dynamic database connections between code running on EC2 and RDS.
-* Mastered snapshotting techniques for database backup and recovery.
+* Apply the AWS knowledge acquired to a real-world project.
+* Complete the deployment and configuration of the system on AWS.
+* Integrate services such as EC2, S3, IAM, VPC, Lambda, CloudWatch, ELB, Auto Scaling, and ECS.
+* Hone skills in managing, monitoring, and operating AWS systems.
+* Finalize the project deliverable and internship report, meeting the established objectives.

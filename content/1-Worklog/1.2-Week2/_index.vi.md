@@ -7,16 +7,19 @@ pre: " <b> 1.2. </b> "
 ---
 
 ### Mục tiêu tuần 2:
-* Tìm hiểu tổng quan về kiến trúc đám mây AWS và tạo tài khoản thực hành.
-* Hoàn thành các bài học cơ bản về Điện toán đám mây và AWS.
+* Tìm hiểu AWS Networking: VPC, Subnet, Internet Gateway và thực hành cấu hình mạng cơ bản
 
 ### Các công việc cần triển khai trong tuần này:
 | Thứ | Công việc | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu |
 | --- | --- | --- | --- | --- |
-| 2 | Tìm hiểu tổng quan kiến trúc AWS và lập tài khoản thực hành | 03/08/2026 | 03/08/2026 | <https://cloudjourney.awsstudygroup.com/> |
-| 3 | Thực hiện các bài học về AWS, Cloud | 06/08/2026 | 08/08/2026 | <https://cloudjourney.awsstudygroup.com/> |
-| 4 | Tìm hiểu các lý thuyết liên quan đến Cloud Computing | 08/08/2026 | 11/08/2026 | |
+| 2 | Tìm hiểu AWS Networking: VPC, Subnet, Internet Gateway | 09/08/2026 | 12/08/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| 3 | Thực hành cấu hình mạng cơ bản| 13/08/2026 | 13/08/2026 | <https://cloudjourney.awsstudygroup.com/> |
+|
 
 ### Kết quả đạt được tuần 2:
-* Hiểu tổng quan kiến trúc AWS và tạo tài khoản thực hành thành công.
-* Tiếp thu lý thuyết cơ bản về Cloud và hoàn thành các bài học nhập môn.
+* Hiểu được kiến trúc và nguyên lý hoạt động của AWS VPC.
+* Biết cách tạo và cấu hình Subnet, Internet Gateway.
+* Hiểu cách phân chia mạng và quản lý địa chỉ IP trong AWS.
+* Thực hành kết nối Internet cho các tài nguyên trong VPC.
+* Có khả năng thực hiện cấu hình mạng AWS cơ bản.
+

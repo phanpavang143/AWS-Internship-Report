@@ -16,4 +16,8 @@ pre: " <b> 1.1. </b> "
 | 3 | Lập tài khoản thực hành và làm quen với AWS Core Services: EC2, S3, IAM | 04/08/2026 | 08/08/2026 | |
 
 ### Kết quả đạt được tuần 1:
-* Đang tìm kiếm và chuẩn bị hồ sơ ứng tuyển vị trí thực tập.
+* Hiểu được tổng quan kiến trúc và các thành phần cơ bản của AWS.
+* Tạo và làm quen với tài khoản AWS, giao diện AWS Management Console.
+* Biết cách sử dụng các dịch vụ EC2, S3 và IAM ở mức cơ bản.
+* Có khả năng khởi tạo, quản lý tài nguyên và phân quyền truy cập trên AWS.
+* Hình thành nền tảng để tiếp tục học và triển khai các ứng dụng trên AWS.

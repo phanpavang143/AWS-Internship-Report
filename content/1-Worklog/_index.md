@@ -9,12 +9,12 @@ pre: " <b> 1. </b> "
 
 Below is my detailed worklog across the 5 weeks of the First Cloud AI Journey internship program:
 
-**Week 1:** [AWS Architecture Overview, Practice Account Setup, and Core Services Familiarization](1.1-week1/)
+**Week 1:** [Gain an overview of AWS architecture, create a practice account, and familiarize yourself with core AWS services: EC2, S3, and IAM.](1.1-week1/)
 
-**Week 2:** [Overview of AWS architecture and create a practice account](1.2-week2/)
+**Week 2:** [Exploring AWS Networking: VPC, Subnet, and Internet Gateway, and practicing basic network configuration.](1.2-week2/)
 
-**Week 3:** [Learn about AWS Core Services: EC2, S3, IAM](1.3-week3/)
+**Week 3:** [Explore AWS Lambda, the serverless model, AWS CloudWatch (monitoring), and CloudTrail (activity auditing).](1.3-week3/)
 
-**Week 4:** [Learn about AWS Networking: VPC, Subnet, Internet Gateway](1.4-week4/)
+**Week 4:** [Explore Elastic Load Balancer (ELB), Auto Scaling, and AWS ECS; familiarize yourself with the basics of Docker.](1.4-week4/)
 
-**Week 5:** [Learn about AWS RDS and DynamoDB](1.5-week5/)
+**Week 5:** [Execute a comprehensive project on AWS, applying the knowledge gained and finalizing the internship deliverables.](1.5-week5/)

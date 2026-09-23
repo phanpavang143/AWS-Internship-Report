@@ -7,13 +7,8 @@ pre: " <b> 3. </b> "
 ---
 
 
-Below is the list of technical posts I have published on the AWS Study Group community during my internship:
+Below is a post shared by a member who uploaded it to the AWS Study Group community during the course of the program:
 
-###  [Blog 1 - INNOVATION SANDBOX ON AWS WITH REAL-TIME ANALYTICS DASHBOARD](3.1-Blog1/)
-This blog introduces the Innovation Sandbox solution on AWS, which combines a real-time analytics dashboard and the Amazon Q Business AI assistant for automated account provisioning and resource monitoring.
+### [Blog 1 - Building an Enterprise RAG Pipeline: From Web Client to Amazon Bedrock & Achieving 68% Cost Optimization on AWS](3.1-Blog1/)
 
-###  [Blog 2 - HOW ALS GEOANALYTICS’ LITHOLENS REVOLUTIONIZES CORE LOGGING THROUGH MACHINE LEARNING WITH AMAZON EKS](3.2-Blog2/)
-This blog analyzes the LithoLens architecture using Machine Learning on Amazon EKS to digitize and accelerate geological core sample logging from weeks to hours.
-
-###  [Blog 3 - PROVISION ORACLE DATABASE@AWS RESOURCES USING TERRAFORM](3.3-Blog3/)
-This blog introduces the Oracle Database@AWS solution provisioning process using Terraform as the primary IaC tool, achieving low-latency connection between AWS EC2 and OCI Exadata.
+This blog introduces an Enterprise RAG architecture designed for corporate environments, integrating Zero-Trust principles, Docker on Amazon EC2, and PostgreSQL on Amazon RDS Graviton. It focuses on data security, performance, and operational cost optimization.

@@ -16,4 +16,8 @@ pre: " <b> 1.1. </b> "
 | 3 | Set up a practice account and familiarize yourself with AWS Core Services: EC2, S3, and IAM. | 04/08/2026 | 08/08/2026 | |
 
 ### Week 1 Achievements:
-* Currently searching and preparing applications for internship positions.
+* Understand the architectural overview and basic components of AWS.
+* Create and familiarize yourself with an AWS account and the AWS Management Console interface.
+* Know how to use EC2, S3, and IAM services at a basic level.
+* Capable of provisioning and managing resources, as well as managing access permissions on AWS.
+* Build a foundation for continued learning and the deployment of applications on AWS.

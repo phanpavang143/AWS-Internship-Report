@@ -6,9 +6,12 @@ chapter: false
 pre: " <b> 6. </b> "
 ---
 
-During my internship at **Amazon Web Services Viet Nam Company Limited (AWS Viet Nam)** from **05/05/2026** to **30/07/2026**, I had the opportunity to learn, practice, and apply my Cybersecurity academic knowledge from Ho Chi Minh City University of Technology (HUTECH) to a real-world cloud computing environment.
+During my internship at **Amazon Web Services Viet Nam Company Limited (AWS Viet Nam)** from **05/05/2026** to **30/07/2026**, I have had the opportunity to learn, hone my skills, and apply the Computer Science knowledge gained at the National University of Civil Engineering (HUCE) in a real-world environment.
 
-In this internship, I participated in the **Workforce Bootcamp - First Cloud AI Journey** program, successfully completing theoretical and hands-on lab challenges (including EC2, S3, IAM, VPC, RDS, Lambda, CloudWatch, Auto Scaling, CloudFormation, Docker/ECS, and CI/CD). Through these activities, I consolidated my ability to configure secure environments, manage cloud resources, and improved my teamwork and technical reporting skills.
+In this internship, I participated in the **Workforce Bootcamp - First Cloud AI Journey** program, successfully completing theoretical and hands-on lab challenges (including EC2, S3, IAM, VPC, RDS, Lambda, CloudWatch, Auto Scaling, CloudFormation, Docker/ECS, and CI/CD). Through this experience, I significantly strengthened my ability to deploy and manage AWS cloud infrastructure.
+I enhanced my skills in network configuration, security, and access control within AWS.
+I developed capabilities in deploying, monitoring, and optimizing applications using AWS services.
+I solidified my knowledge of Docker, ECS, and CI/CD, facilitating the automation of deployment processes.
 
 To objectively reflect on my internship progress, I evaluate myself based on the following criteria:
 
@@ -28,7 +31,8 @@ To objectively reflect on my internship progress, I evaluate myself based on the
 | 12 | **Overall** | General assessment of progress and achievements during the internship | ☐ | ✅ | ☐ |
 
 ### Areas for Self-Improvement
+* **Technical Expertise**: Continue enhancing knowledge of AWS, Cloud Computing, Docker, ECS, and CI/CD, while deepening understanding of cloud system architecture and security.
 
-*   **Technical knowledge**: Gain more hands-on experience in advanced security best practices and complex cloud network troubleshooting.
-*   **Troubleshooting skills**: Develop more patience when debugging configurations via CloudWatch Logs to identify root causes independently before requesting support.
-*   **Communication & Presentation**: Focus on presenting technical reports and ideas in a more concise, structured, and clear manner.
+* **Problem-Solving (Troubleshooting)**: Hone skills in root cause analysis, log interpretation, configuration verification, and issue resolution during system deployment.
+
+* **Communication and Presentation Skills**: Improve the ability to articulate issues clearly, report progress, and present technical results in a concise and accessible manner.

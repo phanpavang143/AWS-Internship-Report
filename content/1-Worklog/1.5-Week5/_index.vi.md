@@ -7,20 +7,18 @@ pre: " <b> 1.5. </b> "
 ---
 
 ### Mục tiêu tuần 5:
-* Nghiên cứu dịch vụ cơ sở dữ liệu trên AWS: AWS RDS (quan hệ) và DynamoDB (phi quan hệ).
-* Thực hành khởi tạo, cấu hình và kết nối cơ sở dữ liệu từ EC2.
-* Tìm hiểu quy trình backup và snapshot dữ liệu trên AWS.
-
+* Thực hiện dự án tổng hợp trên AWS, vận dụng các kiến thức đã học và hoàn thiện kết quả thực tập
 ### Các công việc cần triển khai trong tuần này:
 | Thứ | Công việc | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu |
 | --- | --- | --- | --- | --- |
-| 2 | Tìm hiểu AWS RDS và DynamoDB | 24/08/2026 | 26/08/2026 | <https://cloudjourney.awsstudygroup.com/> |
-| 3 | Thực hành tạo và cấu hình Database trên AWS (RDS MySQL/PostgreSQL) | 26/08/2026 | 27/08/2026 | <https://cloudjourney.awsstudygroup.com/> |
-| 4 | Kết nối EC2 instance với RDS và kiểm tra kết nối hoạt động | 28/08/2026 | 28/08/2026 | <https://cloudjourney.awsstudygroup.com/> |
-| 5 | Tìm hiểu cơ chế sao lưu (backup) và snapshot dữ liệu trên AWS | 29/08/2026 | 29/08/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| 2 | Thực hiện dự án tổng hợp trên AWS | 24/08/2026 | 28/08/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| 3 | Vận dụng các kiến thức đã học và hoàn thiện kết quả thực tập(RDS MySQL/PostgreSQL) | 29/08/2026 | 05/09/2026 | <https://cloudjourney.awsstudygroup.com/> |
+
 
 ### Kết quả đạt được tuần 5:
-* Phân biệt được đặc điểm và trường hợp sử dụng của AWS RDS và DynamoDB.
-* Tạo và cấu hình cơ sở dữ liệu RDS trong phân vùng mạng bảo mật.
-* Kết nối ứng dụng chạy trên EC2 tới cơ sở dữ liệu RDS thành công.
-* Thực hiện backup và khôi phục dữ liệu từ Snapshot để bảo đảm an toàn dữ liệu.
+* Vận dụng tổng hợp các kiến thức AWS đã học vào dự án thực tế.
+* Hoàn thiện việc triển khai và cấu hình hệ thống trên AWS.
+* Kết hợp các dịch vụ như EC2, S3, IAM, VPC, Lambda, CloudWatch, ELB, Auto Scaling, ECS.
+* Rèn luyện kỹ năng quản lý, giám sát và vận hành hệ thống AWS.
+* Hoàn thiện sản phẩm và báo cáo thực tập, đáp ứng mục tiêu đề ra.
+

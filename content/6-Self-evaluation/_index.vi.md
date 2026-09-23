@@ -6,9 +6,12 @@ chapter: false
 pre: " <b> 6. </b> "
 ---
 
-Trong suốt thời gian thực tập tại **Công ty TNHH Amazon Web Services Việt Nam (AWS Việt Nam)** từ ngày **05/05/2026** đến ngày **30/07/2026**, tôi đã có cơ hội học hỏi, rèn luyện và áp dụng các kiến thức chuyên ngành An Ninh Mạng từ trường Đại học Công nghệ TP.HCM (HUTECH) vào môi trường thực tế.
+Trong suốt thời gian thực tập tại **Công ty TNHH Amazon Web Services Việt Nam (AWS Việt Nam)** từ ngày **03/08/2026** đến ngày **06/09/2026**, tôi đã có cơ hội học hỏi, rèn luyện và áp dụng các kiến thức chuyên ngành Khoa học máy tính từ trường Đại học Xây dựng Hà Nội (HUCE) vào môi trường thực tế.
 
-Trong đợt thực tập này, tôi đã tham gia chương trình **Workforce Bootcamp - First Cloud AI Journey**, hoàn thành chuỗi bài học và thực hành lab về hạ tầng đám mây AWS (như EC2, S3, IAM, VPC, RDS, Lambda, CloudWatch, Auto Scaling, CloudFormation, Docker/ECS, và CI/CD). Thông qua đó, tôi đã củng cố đáng kể năng lực cấu hình an toàn hệ thống, quản lý tài nguyên đám mây và nâng cao kỹ năng làm việc nhóm cũng như viết báo cáo kỹ thuật.
+Trong đợt thực tập này, tôi đã tham gia chương trình **Workforce Bootcamp - First Cloud AI Journey**, hoàn thành chuỗi bài học và thực hành lab về hạ tầng đám mây AWS (như EC2, S3, IAM, VPC, RDS, Lambda, CloudWatch, Auto Scaling, CloudFormation, Docker/ECS, và CI/CD). Thông qua đó, tôi đã củng cố đáng kể Củng cố năng lực triển khai và quản lý hạ tầng Cloud AWS.
+Nâng cao kỹ năng cấu hình mạng, bảo mật và phân quyền trên AWS.
+Phát triển khả năng triển khai, giám sát và tối ưu ứng dụng với các dịch vụ AWS.
+Củng cố kiến thức Docker, ECS và CI/CD, hỗ trợ tự động hóa quy trình triển khai.
 
 Để phản ánh một cách khách quan quá trình học tập và rèn luyện của bản thân, tôi xin tự đánh giá dựa trên các tiêu chí dưới đây:
 
@@ -29,6 +32,8 @@ Trong đợt thực tập này, tôi đã tham gia chương trình **Workforce B
 
 ### Định hướng cải thiện bản thân
 
-*   **Kiến thức chuyên môn**: Tích lũy thêm kinh nghiệm thực tế về cấu hình bảo mật chuyên sâu (Security Best Practices) và xử lý sự cố mạng phức tạp trên AWS.
-*   **Kỹ năng giải quyết vấn đề (Troubleshooting)**: Rèn luyện tính kiên nhẫn khi phân tích logs hệ thống (CloudWatch logs) để chủ động tìm ra nguyên nhân gốc rễ của lỗi trước khi tìm kiếm sự hỗ trợ.
-*   **Kỹ năng giao tiếp và thuyết trình**: Tập trung trình bày các báo cáo kỹ thuật một cách ngắn gọn, mạch lạc và súc tích hơn.
+* **Kiến thức chuyên môn**: Tiếp tục nâng cao kiến thức về AWS, Cloud Computing, Docker, ECS và CI/CD, đồng thời tìm hiểu sâu hơn về kiến trúc và bảo mật hệ thống Cloud.
+
+* **Kỹ năng giải quyết vấn đề (Troubleshooting)**: Rèn luyện khả năng phân tích nguyên nhân, đọc log, kiểm tra cấu hình và xử lý sự cố trong quá trình triển khai hệ thống.
+
+* **Kỹ năng giao tiếp và thuyết trình**: Cải thiện khả năng trình bày vấn đề rõ ràng, báo cáo tiến độ và thuyết trình kết quả kỹ thuật một cách ngắn gọn, dễ hiểu.

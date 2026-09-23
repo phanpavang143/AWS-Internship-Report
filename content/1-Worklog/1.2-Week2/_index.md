@@ -7,16 +7,17 @@ pre: " <b> 1.2. </b> "
 ---
 
 ### Week 2 Objectives:
-* Overview of AWS Cloud architecture and create a practice account.
-* Complete basic lessons on Cloud Computing and AWS.
-
+* Exploring AWS Networking: VPC, Subnet, and Internet Gateway, and practicing basic network configuration.
 ### Tasks to be carried out this week:
 | Day | Task | Start Date | Completion Date | Reference Material |
 | --- | --- | --- | --- | --- |
-| 2 | Overview of AWS architecture and create a practice account | 03/08/2026 | 03/08/2026 | <https://cloudjourney.awsstudygroup.com/> |
-| 3 | Complete lessons on AWS and Cloud | 06/08/2026 | 08/08/2026 | <https://cloudjourney.awsstudygroup.com/> |
-| 4 | Study theoretical concepts related to Cloud Computing | 08/08/2026 | 11/08/2026 | |
+| 2 | Understanding AWS Networking: VPC, Subnet, Internet Gateway| 09/08/2026 | 12/08/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| 3 | Basic network configuration practice | 13/08/2026 | 13/08/2026 | <https://cloudjourney.awsstudygroup.com/> |
+
 
 ### Week 2 Achievements:
-* Understood the overview of AWS architecture and successfully set up a practice account.
-* Learned the core concepts of Cloud Computing and completed introductory lessons.
+* Understand the architecture and operating principles of AWS VPC.
+* Know how to create and configure Subnets and Internet Gateways.
+* Understand network segmentation and IP address management in AWS.
+* Practice connecting VPC resources to the Internet.
+* Be capable of performing basic AWS network configuration.

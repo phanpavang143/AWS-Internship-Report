@@ -10,35 +10,53 @@ Trải qua kỳ thực tập **First Cloud AI Journey** đầy ý nghĩa, tôi x
 
 ### Đánh giá chung về chương trình
 
-**1. Môi trường học tập và làm việc**  
-Chương trình được tổ chức rất chuyên nghiệp và bài bản. Hệ thống tài liệu hướng dẫn học tập rõ ràng, sơ đồ lộ trình (roadmap) chi tiết giúp thực tập sinh dễ dàng theo dõi tiến độ của bản thân qua từng tuần. Sự kết hợp giữa tự học và các buổi workshop giúp tăng tính linh hoạt tối đa.
+**1. Môi trường học tập và làm việc:**
+* Môi trường học tập chủ động, thực tế và chuyên nghiệp.
+* Có cơ hội thực hành trực tiếp trên nền tảng AWS.
+* Khuyến khích tự học và chủ động giải quyết vấn đề.
 
-**2. Sự hỗ trợ từ Mentor & Đội ngũ Admin**  
-Đội ngũ Mentor rất giàu kinh nghiệm và nhiệt huyết. Khi tôi gặp khó khăn trong việc cấu hình mạng bảo mật hoặc gỡ lỗi CI/CD, các Mentor luôn hướng dẫn phương pháp tư duy kiểm tra log hệ thống thay vì đưa ra đáp án có sẵn, giúp tôi cải thiện kỹ năng giải quyết vấn đề. Ban Admin cũng hỗ trợ kỹ thuật và cấp phát tài khoản thực hành AWS Free Tier rất nhanh chóng.
+**2. Sự hỗ trợ từ Mentor & Đội ngũ Admin:**
+* Mentor hướng dẫn và giải đáp thắc mắc trong quá trình học tập.
+* Admin hỗ trợ kịp thời về tài khoản, tài liệu và quá trình thực hành.
+* Nhận được góp ý và định hướng để cải thiện kết quả.
 
-**3. Sự phù hợp với chuyên ngành học**  
-Là sinh viên chuyên ngành **An Ninh Mạng** của Đại học HUTECH, tôi thấy các nội dung thực hành rất sát với thực tế ngành. Việc tự tay cấu hình VPC Isolation, Public/Private Subnets, thiết lập Security Groups, Network ACLs và kiểm soát quyền hạn tối thiểu (Least Privilege) với IAM Policy giúp tôi hiểu sâu sắc cách bảo mật hạ tầng đám mây.
+**3. Sự phù hợp với chuyên ngành Khoa học máy tính:**
+* Củng cố kiến thức về hệ thống và công nghệ điện toán đám mây.
+* Áp dụng kiến thức lập trình và hệ thống vào các bài lab thực tế.
+* Bổ sung kỹ năng về triển khai và vận hành ứng dụng.
 
-**4. Cơ hội học hỏi & Phát triển kỹ năng**  
-Chương trình là cơ hội lớn để tôi tiếp cận với các công nghệ đám mây hiện đại như Serverless (Lambda, API Gateway), Container (Docker, ECS) và hạ tầng dưới dạng mã (Terraform, CloudFormation). Ngoài kỹ năng chuyên môn, tôi còn cải thiện kỹ năng viết báo cáo kỹ thuật và quản lý thời gian.
+**4. Cơ hội học hỏi & Phát triển kỹ năng:**
+* Tiếp cận và thực hành với nhiều dịch vụ AWS.
+* Phát triển kỹ năng Cloud, Docker, CI/CD và Troubleshooting.
+* Rèn luyện khả năng tự học và nghiên cứu công nghệ mới.
 
-**5. Văn hóa & Tinh thần đồng đội**  
-Văn hóa chia sẻ kiến thức (knowledge sharing) tại AWS Study Group hoạt động rất sôi nổi. Mọi người đều cởi mở, không ngại đặt câu hỏi và tích cực giúp đỡ lẫn nhau vượt qua các bài lab khó.
+**5. Văn hóa & Tinh thần đồng đội:**
+* Môi trường cởi mở, thân thiện và hỗ trợ lẫn nhau.
+* Khuyến khích trao đổi kiến thức và chia sẻ kinh nghiệm.
+* Tạo điều kiện phát triển tinh thần hợp tác và làm việc nhóm.
+
 
 ---
 
 ### Trả lời câu hỏi khảo sát
 
-*   **Điều bạn hài lòng nhất trong thời gian thực tập?**  
-    Đó là việc được cấp tài khoản AWS thực hành trực tiếp (hands-on) trên các dịch vụ đám mây thực tế, giúp biến các kiến thức lý thuyết trừu tượng thành sản phẩm thực tế chạy được.
-*   **Điều bạn nghĩ chương trình cần cải thiện cho các khóa sau?**  
-    Nên bổ sung thêm một số buổi thảo luận nhóm nhỏ (study group check-in) định kỳ hàng tuần để các thực tập sinh có thể giao lưu trực tiếp và chia sẻ các lỗi cấu hình thường gặp.
-*   **Bạn có khuyên bạn bè tham gia chương trình này không?**  
-    Chắc chắn có. Đây là chương trình thực hành đám mây bài bản nhất giúp sinh viên rút ngắn khoảng cách giữa nhà trường và doanh nghiệp.
+* **Điều bạn hài lòng nhất trong thời gian thực tập?**
+
+  Được thực hành trực tiếp với AWS và áp dụng kiến thức vào các bài lab thực tế, đồng thời nhận được sự hướng dẫn và hỗ trợ từ Mentor.
+
+* **Điều bạn nghĩ chương trình cần cải thiện cho các khóa sau?**
+
+  Có thể bổ sung thêm các dự án thực tế và tăng thời lượng thực hành để học viên có thêm cơ hội áp dụng kiến thức đã học.
+
+* **Bạn có khuyên bạn bè tham gia chương trình này không?**
+
+  Có. Chương trình cung cấp kiến thức thực tế về AWS và Cloud, phù hợp với sinh viên muốn tìm hiểu và phát triển kỹ năng trong lĩnh vực điện toán đám mây.
+
 
 ---
 
 ### Đề xuất & Mong muốn
 
-*   **Đề xuất**: Ban tổ chức có thể thiết kế thêm các buổi chia sẻ chuyên sâu (Deep Dive) về các sự cố bảo mật thực tế trên cloud để sinh viên ngành An ninh mạng có thêm góc nhìn thực tiễn.
-*   **Mong muốn**: Mong muốn được tiếp tục đồng hành và tham gia các hoạt động cộng đồng của AWS Study Group trong tương lai để tiếp tục cập nhật công nghệ mới.
+* **Đề xuất**: Tăng cường các bài lab và dự án thực tế, đặc biệt về Cloud, DevOps, Docker và CI/CD để sinh viên có cơ hội vận dụng kiến thức chuyên ngành.
+
+* **Mong muốn**: Có thêm các buổi hướng dẫn chuyên sâu và cơ hội làm việc với dự án thực tế, giúp sinh viên nâng cao kỹ năng chuyên môn và chuẩn bị tốt hơn cho công việc sau khi tốt nghiệp.
