@@ -1,7 +1,7 @@
 ﻿---
 title: "Terraform, VPC, private subnet và bảo mật mạng"
 date: 2026-09-25
-weight: 1
+weight: 2
 chapter: false
 pre: " <b> 5.2. </b> "
 ---

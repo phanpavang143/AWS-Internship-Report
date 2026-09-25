@@ -1,7 +1,7 @@
 ﻿---
 title: "Amazon SQS, AWS Lambda, CloudWatch and CloudTrail"
 date: 2026-08-30
-weight: 1
+weight: 5
 chapter: false
 pre: " <b> 5.5. </b> "
 ---

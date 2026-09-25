@@ -1,7 +1,7 @@
 ﻿---
 title: "Cleanup hạ tầng AWS và kiểm soát chi phí"
 date: 2026-08-30
-weight: 1
+weight: 6
 chapter: false
 pre: " <b> 5.6. </b> "
 ---
