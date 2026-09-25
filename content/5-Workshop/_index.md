@@ -1,6 +1,6 @@
 ﻿---
-title: "Workshop: deploying the Spring Boot e-commerce website on AWS"
-date: 2026-09-25
+title: "Workshop"
+date: 2026-08-30
 weight: 5
 chapter: false
 pre: " <b> 5. </b> "

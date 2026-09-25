@@ -1,6 +1,6 @@
 ﻿---
 title: "S3 and CloudFront for images"
-date: 2026-09-25
+date: 2026-08-30
 weight: 1
 chapter: false
 pre: " <b> 5.4.2. </b> "

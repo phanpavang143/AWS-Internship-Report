@@ -1,6 +1,6 @@
 ﻿---
 title: "ECS, ALB và CloudFront"
-date: 2026-09-25
+date: 2026-08-30
 weight: 1
 chapter: false
 pre: " <b> 5.6.1. </b> "

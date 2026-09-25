@@ -1,5 +1,5 @@
 ---
-title: "E-commerce Website on AWS"
+title: "Proposal"
 date: 2026-08-30
 weight: 2
 chapter: false

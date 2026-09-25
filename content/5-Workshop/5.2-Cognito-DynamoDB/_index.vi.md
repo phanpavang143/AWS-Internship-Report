@@ -1,5 +1,5 @@
 ﻿---
-title: "5.2. Terraform, VPC, private subnet và bảo mật mạng"
+title: "Terraform, VPC, private subnet và bảo mật mạng"
 date: 2026-09-25
 weight: 1
 chapter: false

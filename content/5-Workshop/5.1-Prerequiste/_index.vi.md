@@ -1,6 +1,6 @@
 ﻿---
-title: "5.1. Chuẩn bị môi trường, AWS Region và công cụ triển khai"
-date: 2026-09-25
+title: "Chuẩn bị môi trường, AWS Region và công cụ triển khai"
+date: 2026-08-30
 weight: 1
 chapter: false
 pre: " <b> 5.1. </b> "

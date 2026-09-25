@@ -1,6 +1,6 @@
 ﻿---
 title: "Terraform backend và biến môi trường"
-date: 2026-09-25
+date: 2026-08-30
 weight: 1
 chapter: false
 pre: " <b> 5.2.1. </b> "

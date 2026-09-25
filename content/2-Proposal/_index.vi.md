@@ -1,5 +1,5 @@
 ---
-title: "Xây dựng Website Thương mại điện tử trên AWS"
+title: "Bản đề xuất"
 date: 2026-08-30
 weight: 2
 chapter: false

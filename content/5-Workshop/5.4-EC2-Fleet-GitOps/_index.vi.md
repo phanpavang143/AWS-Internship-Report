@@ -1,6 +1,6 @@
 ﻿---
-title: "5.4. Amazon RDS MySQL, Amazon S3, CloudFront và ElastiCache Redis"
-date: 2026-09-25
+title: "Amazon RDS MySQL, Amazon S3, CloudFront và ElastiCache Redis"
+date: 2026-08-30
 weight: 1
 chapter: false
 pre: " <b> 5.4. </b> "

@@ -1,6 +1,6 @@
 ---
 title: "Sharing and Feedback"
-date: 2026-07-14
+date: 2026-08-30
 weight: 7
 chapter: false
 pre: " <b> 7. </b> "

@@ -1,6 +1,6 @@
 ﻿---
-title: "5.1. Environment, AWS Region and deployment tools"
-date: 2026-09-25
+title: "Environment, AWS Region and deployment tools"
+date: 2026-08-30
 weight: 1
 chapter: false
 pre: " <b> 5.1. </b> "
