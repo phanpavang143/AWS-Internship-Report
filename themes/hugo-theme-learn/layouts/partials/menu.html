@@ -132,7 +132,7 @@ $currentNode.File }}{{ $currentFileUniqueID = .UniqueID }}{{ end }} {{with
     .Site.Params.ordersectionsby "title"}} {{ range $pages.ByTitle }} {{ if and
     .Params.hidden (not $.showhidden) }} {{else}} {{ template "section-tree-nav"
     dict "sect" . "currentnode" $currentNode "showvisitedlinks"
-    $showvisitedlinks }} {{end}} {{ end }} {{else}} {{ range $pages.ByWeight }}
+    $showvisitedlinks }} {{end}} {{ end }} {{else}} {{ range sort $pages "Params.pre" }}
     {{ if and .Params.hidden (not $.showhidden) }} {{else}} {{ template
     "section-tree-nav" dict "sect" . "currentnode" $currentNode
     "showvisitedlinks" $showvisitedlinks }} {{end}} {{ end }} {{end}}
