@@ -11,6 +11,7 @@ This workshop documents a Spring Boot 3.5, Java 25 and Spring MVC/JSP modular mo
 [!NOTE]
 
 Link Web Demo: http://fighting-game-assets-508768431157.s3-website-ap-southeast-1.amazonaws.com/
+
 Link Source Code: https://github.com/Nothingtoread/fighting-game/tree/main
 
 ![E-commerce website architecture on AWS](/images/2-Proposal/Sodokientruc.png)
