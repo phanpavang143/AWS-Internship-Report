@@ -10,9 +10,9 @@ Workshop này mô tả triển khai website thương mại điện tử Spring B
 
 [!NOTE]
 
-Link Web Demo: http://fighting-game-assets-508768431157.s3-website-ap-southeast-1.amazonaws.com/
+Link Web Demo: https://phanpavang143.github.io/WebDemo/
 
-Link Source Code: https://github.com/Nothingtoread/fighting-game/tree/main
+Link Source Code: https://github.com/phanpavang143/WebDemo
 
 ![Kiến trúc website thương mại điện tử trên AWS](/images/2-Proposal/Sodokientruc.png)
 
