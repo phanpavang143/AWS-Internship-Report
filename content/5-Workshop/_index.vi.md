@@ -8,6 +8,11 @@ pre: " <b> 5. </b> "
 
 Workshop này mô tả triển khai website thương mại điện tử Spring Boot 3.5, Java 25, Spring MVC/JSP theo modular monolith. Ứng dụng được đóng gói Docker và chạy trên Amazon ECS Fargate, phía trước là Application Load Balancer và Amazon CloudFront.
 
+[!NOTE]
+
+Link Web Demo: http://fighting-game-assets-508768431157.s3-website-ap-southeast-1.amazonaws.com/
+Link Source Code: https://github.com/Nothingtoread/fighting-game/tree/main
+
 ![Kiến trúc website thương mại điện tử trên AWS](/images/2-Proposal/Sodokientruc.png)
 
 ## Dịch vụ sử dụng
