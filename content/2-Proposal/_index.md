@@ -6,7 +6,6 @@ chapter: false
 pre: " <b> 2. </b> "
 ---
 
-# E-commerce Website on AWS
 ## Architecture, implementation, cost optimization, and deployment roadmap
 
 ### 1. Executive Summary

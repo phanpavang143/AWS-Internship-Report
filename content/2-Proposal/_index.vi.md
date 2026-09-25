@@ -6,7 +6,6 @@ chapter: false
 pre: " <b> 2. </b> "
 ---
 
-# Xây dựng Website Thương mại điện tử trên AWS
 ## Kiến trúc ứng dụng thương mại điện tử hiệu quả, an toàn và dễ mở rộng trên AWS
 
 ### 1. Tóm tắt điều hành
