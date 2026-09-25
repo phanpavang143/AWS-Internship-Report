@@ -1,7 +1,7 @@
 ﻿---
 title: "State, output và secrets"
 date: 2026-08-30
-weight: 1
+weight: 3
 chapter: false
 pre: " <b> 5.2.3. </b> "
 ---

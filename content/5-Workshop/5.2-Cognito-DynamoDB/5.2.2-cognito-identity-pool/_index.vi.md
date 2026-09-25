@@ -1,7 +1,7 @@
 ﻿---
 title: "Subnet, security group và VPC Endpoint"
 date: 2026-08-30
-weight: 1
+weight: 2
 chapter: false
 pre: " <b> 5.2.2. </b> "
 ---

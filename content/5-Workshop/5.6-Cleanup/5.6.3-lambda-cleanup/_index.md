@@ -1,7 +1,7 @@
 ﻿---
 title: "SQS and Lambda"
 date: 2026-08-30
-weight: 1
+weight: 3
 chapter: false
 pre: " <b> 5.6.3. </b> "
 ---

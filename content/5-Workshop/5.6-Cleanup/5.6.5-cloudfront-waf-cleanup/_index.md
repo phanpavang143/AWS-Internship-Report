@@ -1,7 +1,7 @@
 ﻿---
 title: "Safe Terraform destroy and cost verification"
 date: 2026-08-30
-weight: 1
+weight: 5
 chapter: false
 pre: " <b> 5.6.5. </b> "
 ---
