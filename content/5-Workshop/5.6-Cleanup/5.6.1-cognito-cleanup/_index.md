@@ -1,22 +1,18 @@
----
-title: "Cleaning up Amazon Cognito"
-date: 2026-07-21
+﻿---
+title: "ECS, ALB and CloudFront"
+date: 2026-09-25
 weight: 1
 chapter: false
 pre: " <b> 5.6.1. </b> "
 ---
 
-# 5.6.1. Cleaning up Amazon Cognito
 
-1. Navigate to **Amazon Cognito** -> **User pools**.
-2. Select your provisioned **User pool** (e.g., `ap-southeast-1_phYoaMUPC`), click **Delete**, and confirm deletion.
+Stop or scale the service to zero, then delete the ECS service/cluster, target group and ALB listener. Delete CloudFront only after checking DNS and origin dependencies.
 
-![Delete Cognito User Pool](/images/5-Workshop/cleanup/image1.png)
+![AWS cleanup illustration](/images/5-Workshop/5.6-Cleanup/delete-s3.png)
 
-![Confirm Cognito User Pool Deletion](/images/5-Workshop/cleanup/image2.png)
+``bash
+terraform plan -destroy
+terraform destroy
+``
 
-3. Navigate to **Identity pools**, select your provisioned **Identity pool** (e.g., `FightingGameIdentityPool`), click **Delete**, and confirm deletion.
-
-![Delete Cognito Identity Pool](/images/5-Workshop/cleanup/image3.png)
-
-![Confirm Cognito Identity Pool Deletion](/images/5-Workshop/cleanup/image4.png)

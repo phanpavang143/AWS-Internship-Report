@@ -1,16 +1,18 @@
----
-title: "Xóa AWS Lambda Functions"
-date: 2026-07-21
-weight: 3
+﻿---
+title: "SQS và Lambda"
+date: 2026-09-25
+weight: 1
 chapter: false
 pre: " <b> 5.6.3. </b> "
 ---
 
-# 5.6.3. Dọn dẹp AWS Lambda Functions
 
-1. Truy cập dịch vụ **AWS Lambda** -> chọn **Functions**.
-2. Chọn tất cả các hàm Lambda đã khởi tạo (`FightingGameMatchmaker` và `MatchAnalyticLambda`), nhấn **Actions** -> chọn **Delete** và xác nhận xóa.
+Dừng producer, để consumer xử lý hết queue, kiểm tra DLQ. Sau đó xóa event source mapping, Lambda, queue và log group; giữ lại message cần điều tra.
 
-![Chọn các hàm Lambda để xóa](/images/5-Workshop/cleanup/image7.png)
+![AWS cleanup illustration](/images/5-Workshop/5.6-Cleanup/delete-s3.png)
 
-![Xác nhận xóa các hàm Lambda](/images/5-Workshop/cleanup/image8.png)
+``bash
+terraform plan -destroy
+terraform destroy
+``
+

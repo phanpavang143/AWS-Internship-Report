@@ -1,22 +1,23 @@
----
-title: "Amazon Cognito & DynamoDB Setup"
-date: 2026-07-21
-weight: 2
+﻿---
+title: "5.2. Terraform, VPC, private subnets and network security"
+date: 2026-09-25
+weight: 1
 chapter: false
 pre: " <b> 5.2. </b> "
-aliases:
-  - /5-workshop/5.1-serverless-game-backend/5.1.2-cognito-dynamodb/
-  - /5-workshop/5.1-Serverless-Game-Backend/5.1.2-cognito-dynamodb/
 ---
 
-# 5.2. Amazon Cognito & DynamoDB Setup
 
-In this section, we will configure an **Amazon Cognito User Pool & Identity Pool** to handle player authentication and authorize S3 asset downloads. Then, we will create two **Amazon DynamoDB** tables: one for the matchmaking queue (`MatchmakingQueue`) and another for live matches (`ActiveMatches`).
+Use a two-AZ VPC. Public subnets host the ALB/NAT Gateway; private subnets host ECS, RDS and Redis. Use S3 gateway and SQS interface endpoints when appropriate to reduce NAT cost.
 
----
+![AWS VPC](/images/5-Workshop/5.3-S3-vpc/vpc.png)
 
-### Detailed Modules:
+## Validation
 
-* **[5.2.1. Provisioning Amazon Cognito User Pool](5.2.1-cognito-user-pool/)**
-* **[5.2.2. Provisioning Amazon Cognito Identity Pool](5.2.2-cognito-identity-pool/)**
-* **[5.2.3. Provisioning Amazon DynamoDB Tables](5.2.3-dynamodb-tables/)**
+``bash
+terraform fmt -check
+terraform validate
+terraform plan
+``
+
+
+

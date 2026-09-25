@@ -1,28 +1,23 @@
----
-title: "Prerequisites & Region Setup"
-date: 2026-07-21
+﻿---
+title: "5.1. Environment, AWS Region and deployment tools"
+date: 2026-09-25
 weight: 1
 chapter: false
 pre: " <b> 5.1. </b> "
-aliases:
-  - /5-workshop/5.1-serverless-game-backend/
-  - /5-workshop/5.1-workshop-overview/
-  - /5-workshop/5.1-serverless-game-backend/5.1.1-prerequiste/
-  - /5-workshop/5.1-Serverless-Game-Backend/5.1.1-prerequiste/
 ---
 
-# 5.1. Prerequisites & Region Setup
 
-### Prerequisites:
-1.  An **AWS Account** with Administrator Access or an IAM user with full permissions for Amazon Cognito, DynamoDB, Lambda, API Gateway, EC2, S3, CodeDeploy, and IAM.
-2.  A modern **Web Browser** (Google Chrome, Firefox, Safari, or Microsoft Edge).
-3.  An API testing tool (Postman, cURL, or a Node.js client script) to simulate player API requests.
+Install Java 25, Maven, Docker, AWS CLI and Terraform. Use one Region consistently and expose /actuator/health. Store RDS passwords in Secrets Manager/SSM, keep RDS and Redis private, and tag resources with Project, Environment and ManagedBy=Terraform.
 
----
+![AWS Region and VPC console](/images/5-Workshop/5.2-Prerequisite/region.png)
 
-### Step 1: Console Login & Region Selection
-1. Access the [AWS Management Console](https://console.aws.amazon.com/) and log in to your account.
-2. In the top-right navigation bar, switch your AWS Region to **Asia Pacific (Singapore) - ap-southeast-1**.
+## Validation
 
-![Switch Region to Singapore](/images/5-Workshop/img_A/image1.png)
+``bash
+terraform fmt -check
+terraform validate
+terraform plan
+``
+
+
 

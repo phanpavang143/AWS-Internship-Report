@@ -1,22 +1,23 @@
----
-title: "Khởi tạo Cognito & DynamoDB"
-date: 2026-07-21
-weight: 2
+﻿---
+title: "5.2. Terraform, VPC, private subnet và bảo mật mạng"
+date: 2026-09-25
+weight: 1
 chapter: false
 pre: " <b> 5.2. </b> "
-aliases:
-  - /5-workshop/5.1-serverless-game-backend/5.1.2-cognito-dynamodb/
-  - /5-workshop/5.1-Serverless-Game-Backend/5.1.2-cognito-dynamodb/
 ---
 
-# 5.2. Khởi tạo Amazon Cognito & DynamoDB Tables
 
-Trong chương này, chúng ta sẽ cấu hình **Amazon Cognito User Pool & Identity Pool** để xử lý xác thực người chơi và cấp phát quyền tải asset/patch từ S3. Sau đó, chúng ta sẽ tạo 2 bảng **Amazon DynamoDB** để phục vụ hàng đợi ghép trận (`MatchmakingQueue`) và các trận đấu đang hoạt động (`ActiveMatches`).
+Thiết kế VPC hai Availability Zone. Public subnet chứa ALB/NAT Gateway; private subnet chứa ECS, RDS và Redis. Dùng S3 Gateway Endpoint và SQS Interface Endpoint khi phù hợp để giảm chi phí NAT.
 
----
+![VPC trên AWS](/images/5-Workshop/5.3-S3-vpc/vpc.png)
 
-### Danh sách các bài học chi tiết:
+## Kiểm tra
 
-* **[5.2.1. Khởi tạo Amazon Cognito User Pool](5.2.1-cognito-user-pool/)**
-* **[5.2.2. Khởi tạo Amazon Cognito Identity Pool](5.2.2-cognito-identity-pool/)**
-* **[5.2.3. Khởi tạo các bảng Amazon DynamoDB](5.2.3-dynamodb-tables/)**
+``bash
+terraform fmt -check
+terraform validate
+terraform plan
+``
+
+
+

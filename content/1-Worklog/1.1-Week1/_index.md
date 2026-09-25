@@ -1,5 +1,5 @@
 ---
-title: "AWS Architecture Overview, Practice Account Setup, and Core Services Familiarization"
+title:  "Week 1 Worklog"
 date: 2026-04-28
 weight: 1
 chapter: false

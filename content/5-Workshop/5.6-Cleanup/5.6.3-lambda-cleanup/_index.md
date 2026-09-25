@@ -1,16 +1,18 @@
----
-title: "Cleaning up AWS Lambda Functions"
-date: 2026-07-21
-weight: 3
+﻿---
+title: "SQS and Lambda"
+date: 2026-09-25
+weight: 1
 chapter: false
 pre: " <b> 5.6.3. </b> "
 ---
 
-# 5.6.3. Cleaning up AWS Lambda Functions
 
-1. Navigate to **AWS Lambda** -> **Functions**.
-2. Select all provisioned Lambda functions (`FightingGameMatchmaker` and `MatchAnalyticLambda`), click **Actions** -> **Delete**, and confirm deletion.
+Stop producers, let consumers drain the queue and inspect the DLQ. Then delete event source mappings, Lambda, queues and log groups; preserve messages needed for investigation.
 
-![Select Lambda Functions to Delete](/images/5-Workshop/cleanup/image7.png)
+![AWS cleanup illustration](/images/5-Workshop/5.6-Cleanup/delete-s3.png)
 
-![Confirm Lambda Functions Deletion](/images/5-Workshop/cleanup/image8.png)
+``bash
+terraform plan -destroy
+terraform destroy
+``
+

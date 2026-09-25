@@ -1,5 +1,5 @@
 ---
-title: "Tìm hiểu tổng quan kiến trúc AWS, lập tài khoản thực hành và làm quen với AWS Core Services: EC2, S3, IAM"
+title: "Worklog Tuần 1"
 date: 2026-04-28
 weight: 1
 chapter: false

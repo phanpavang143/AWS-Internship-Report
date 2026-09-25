@@ -1,13 +1,20 @@
----
-title: "Enabling DynamoDB Streams"
-date: 2026-07-21
+﻿---
+title: "SQS and the order queue"
+date: 2026-09-25
 weight: 1
 chapter: false
 pre: " <b> 5.5.1. </b> "
 ---
 
-# 5.5.1. Enabling DynamoDB Streams
 
-1. Navigate to **Amazon DynamoDB** -> **Tables** -> select table `ActiveMatches`.
-2. Open the **Exports and streams** tab -> **DynamoDB stream details**.
-3. Click **Turn on**, select **New and old images**, and click **Turn on stream**.
+Create a main queue and DLQ. Messages contain orderId, event type, version and correlation ID; consumers are idempotent and use a suitable visibility timeout.
+
+![AWS illustration](/images/5-Workshop/5.3-S3-vpc/overview.png)
+
+``bash
+terraform validate
+terraform plan
+``
+
+
+

@@ -1,181 +1,244 @@
 ---
-title: "Bản đề xuất"
-date: 2026-07-21
+title: "Xây dựng Website Thương mại điện tử trên AWS"
+date: 2026-08-30
 weight: 2
 chapter: false
 pre: " <b> 2. </b> "
 ---
 
-# Serverless & Event-Driven Game Backend trên AWS
-## Kiến trúc Backend tối ưu chi phí và mở rộng linh hoạt cho Game Live-Service
+# Xây dựng Website Thương mại điện tử trên AWS
+## Kiến trúc ứng dụng thương mại điện tử hiệu quả, an toàn và dễ mở rộng trên AWS
 
 ### 1. Tóm tắt điều hành
-Đề xuất này trình bày giải pháp kiến trúc **Backend cho Game Live-Service** chạy trên hạ tầng đám mây AWS. Thay vì duy trì một cụm máy chủ game (Game Server) hoạt động 24/7 gây lãng phí chi phí lớn trong những khoảng thời gian không có người chơi, hệ thống áp dụng nguyên tắc **chỉ bật tài nguyên tính toán (Compute) khi thực sự cần thiết**: bao gồm luồng đăng nhập, ghép trận (Matchmaking), và trong suốt thời gian diễn ra trận đấu thực tế.
 
-Toàn bộ phần **Metagame** (xác thực người chơi, phân phối tài nguyên game, ghép trận, lưu trữ kết quả) được xây dựng hoàn toàn dựa trên kiến trúc **Serverless**. Phần phiên chơi game thực tế (Live Game Session) yêu cầu máy chủ vật lý được quản lý trong fleet **EC2 Spot (kiến trúc Graviton ARM64)** và chỉ được kích hoạt (spin up) tự động theo yêu cầu của luồng ghép trận. Toàn bộ quy trình triển khai và cập nhật mã nguồn được tự động hóa qua mô hình **GitOps (CI/CD Pipeline)**, đảm bảo không có sự can thiệp thủ công lên môi trường Production.
+Dự án xây dựng một website thương mại điện tử sử dụng Spring Boot 3.5, Java 25 và mô hình server-side rendering với Spring MVC/JSP. Ứng dụng được container hóa bằng Docker và triển khai trên Amazon ECS Fargate, kết hợp Amazon RDS MySQL, Amazon S3, Amazon SQS và các dịch vụ giám sát của AWS. Kiến trúc được định hướng theo mô hình modular monolith, giúp giữ độ đơn giản của ứng dụng nhưng vẫn có khả năng mở rộng ngang khi số lượng người dùng tăng. Các điểm cần cải thiện trọng tâm gồm quản lý database bằng Terraform/RDS, connection pooling, session dùng chung, xử lý order bất đồng bộ và tối ưu chi phí mạng. Giải pháp đề xuất ưu tiên tính ổn định, bảo mật, khả năng mở rộng và kiểm soát chi phí trước khi xem xét tách thành microservices.
 
 ---
 
 ### 2. Tuyên bố vấn đề
 
-#### Vấn đề hiện tại
-*   **Chi phí lãng phí lớn (Idle Cost)**: Các hệ thống Game Server truyền thống phải duy trì các máy chủ ảo EC2/Virtual Machine chạy liên tục 24/7 để sẵn sàng phục vụ người chơi, dẫn đến chi phí hạ tầng rất cao ngay cả khi số lượng người chơi giảm mạnh vào các khung giờ thấp điểm.
-*   **Chi phí băng thông & Egress cao**: Việc sử dụng NAT Gateway hoặc Load Balancer thường trực để định tuyến lưu lượng internet làm phát sinh chi phí duy trì và chi phí truyền dữ liệu (data transfer) không đáng có.
-*   **Phức tạp trong cập nhật & Phát hành (Deployment Overhead)**: Mỗi lần phát hành bản vá nhỏ (small patch) hoặc cập nhật game server bundle thường đòi hỏi phải đóng gói lại toàn bộ ảnh đĩa (Rebake AMI), làm chậm chu kỳ phát hành tính năng và tiềm ẩn rủi ro gián đoạn dịch vụ đang chạy.
-*   **Nguy cơ bảo mật mạng**: Việc mở sẵn các cổng mạng (standing security group rules) trên máy chủ game tạo ra nguy cơ bị tấn công DDoS hoặc thâm nhập trái phép từ bên ngoài.
+#### 2.1. Vấn đề hiện tại
 
-#### Giải pháp đề xuất
-Hệ thống được thiết kế theo nguyên tắc cốt lõi: **Serverless cho mọi thành phần trừ phiên chơi game thực tế**. Phần phiên chơi game nằm sau ranh giới mạng riêng (Network Boundary) thuộc VPC, tách biệt hoàn toàn khỏi luồng matchmaking và xác thực.
+##### 1. Database chưa được quản lý hoàn toàn bằng hạ tầng mã hóa
 
-Kiến trúc chia làm 4 luồng xử lý độc lập, mỗi luồng có cơ chế kích hoạt (Trigger) và ranh giới tin cậy (Trust Boundary) riêng:
-1.  **Flow C (GitOps Deployment Loop)**: Quản lý CI/CD tự động hóa, build artifact, cập nhật Lambda Version Alias, đẩy asset/patch/server bundle lên S3 và cập nhật Launch Template cho fleet EC2 Spot mà không làm gián đoạn các trận đấu đang diễn ra.
-2.  **Flow A (Player Auth & Asset Distribution)**: Xác thực người chơi qua Amazon Cognito User Pool và phân phối quyền truy cập tải asset/patch từ S3 bằng Cognito Identity Pool (Temporary IAM Credentials scoped theo prefix).
-3.  **Flow R (Synchronous Matchmaking & EC2 Control Plane)**: Luồng ghép trận đồng bộ qua CloudFront + WAF, API Gateway và Matchmaker Lambda (trong Private Subnet). Lambda gọi EC2 Control Plane qua VPC Interface Endpoint để yêu cầu warm instance từ ASG Spot fleet, mở Security Group rule theo từng người chơi/trận đấu và trả về IP/Port để client kết nối trực tiếp qua Internet Gateway.
-4.  **Flow E (Asynchronous Post-Match Processing & Analytics)**: Luồng bất đồng bộ xử lý kết quả sau trận đấu thông qua DynamoDB Streams và Async Lambda, tách biệt hoàn toàn để không ảnh hưởng đến độ trễ ghép trận.
+Database hiện phải được cung cấp bên ngoài Terraform, khiến môi trường triển khai chưa hoàn toàn reproducible và khó đồng bộ giữa development, staging và production. Khi cần khôi phục hoặc dựng lại môi trường, đội vận hành phải thực hiện thêm các bước thủ công. Việc thiếu RDS được quản lý bằng IaC cũng làm giảm khả năng chuẩn hóa backup, security group, subnet group và secret. Đây là điểm cần ưu tiên khắc phục trước khi mở rộng hệ thống.
 
-#### Lợi ích và Hoàn vốn đầu tư (ROI)
-*   **Tối ưu chi phí tối đa (lên đến 70 - 80%)**: Nhờ kết hợp EC2 Spot Instance trên vi xử lý Graviton ARM64 (rẻ hơn 20% so với x86) và cơ chế chỉ bật EC2 khi có trận đấu. Loại bỏ hoàn toàn chi phí duy trì NAT Gateway và Load Balancer thường trực.
-*   **Tăng cường độ an toàn bảo mật**: Mọi request đều được xác thực JWT trước khi chạm vào mã ứng dụng. Cổng game server chỉ mở Security Group rule động cho đúng IP người chơi trong thời gian diễn ra trận đấu và thu hồi ngay sau khi kết thúc.
-*   **Chu kỳ phát hành linh hoạt (Zero-Downtime Rollout)**: Nhờ lưu trữ tập trung server bundle trên S3, khi có bản vá nhỏ, EC2 UserData tự động pull bản mới nhất lúc khởi động mà không cần rebake lại AMI.
+##### 2. Kết nối database chưa phù hợp với việc scale nhiều ECS task
+
+Ứng dụng đang sử dụng `DriverManagerDataSource`, không cung cấp connection pool như HikariCP. Khi ECS service tăng số task, mỗi task có thể tạo và đóng nhiều kết nối trực tiếp tới MySQL, gây overhead và làm tăng nguy cơ chạm giới hạn connection của database. Tình trạng này có thể ảnh hưởng đến latency khi traffic tăng đột biến. Vì vậy, connection pooling cần được đưa vào cấu hình chuẩn của Spring Boot.
+
+##### 3. Giỏ hàng phụ thuộc vào HttpSession
+
+Cart hiện được lưu trong `HttpSession`, nên trạng thái người dùng phụ thuộc vào task ECS đang phục vụ request. Khi chạy nhiều task, hệ thống phải dùng sticky session hoặc một session store dùng chung để tránh mất trạng thái. Sticky session là giải pháp chuyển tiếp nhưng làm giảm tính stateless của ứng dụng. Với website thương mại điện tử, lưu cart theo `user_id` trong database phù hợp hơn vì cart có thể được duy trì giữa nhiều thiết bị và nhiều phiên đăng nhập.
+
+##### 4. Luồng SQS chưa phản ánh đầy đủ nghiệp vụ đơn hàng
+
+SQS hiện mới nhận event thêm hoặc xóa sản phẩm khỏi cart và chưa trở thành nền tảng cho một order flow hoàn chỉnh. Điều này khiến khả năng xử lý bất đồng bộ của hệ thống chưa được khai thác cho các tác vụ như tạo đơn, gửi thông báo hoặc cập nhật trạng thái. Khi quy mô tăng, các tác vụ nền cần được tách khỏi request đồng bộ để giảm thời gian phản hồi. Kiến trúc worker dùng ECS hoặc Lambda có thể xử lý các event theo cơ chế retry và dead-letter queue.
+
+#### 2.2. Giải pháp đề xuất
+
+Giải pháp chuyển ứng dụng sang mô hình modular monolith chạy trên ECS Fargate, sử dụng RDS MySQL làm database được quản lý và S3/CloudFront cho ảnh sản phẩm. Spring Boot được cấu hình HikariCP để quản lý connection pool, đồng thời cart được chuyển sang database hoặc Redis tùy yêu cầu về session/cache. SQS được sử dụng cho các tác vụ bất đồng bộ và worker riêng xử lý order/event. Toàn bộ hạ tầng được quản lý bằng Terraform, kết hợp CloudWatch và CloudTrail để giám sát và audit.
+
+##### Kiến trúc chia làm 3 luồng xử lý độc lập
+
+**1. Luồng người dùng (Web/App)**  
+Người dùng truy cập hệ thống qua CloudFront và ALB trước khi request đến ECS Spring Boot. Luồng này xử lý đăng nhập, hồ sơ, danh mục, sản phẩm và giỏ hàng. Dữ liệu nghiệp vụ được đọc/ghi vào RDS, trong khi ảnh được phân phối từ S3 qua CloudFront.
+
+**2. Luồng quản trị (Admin)**  
+Admin truy cập cùng ứng dụng nhưng được Spring Security kiểm tra quyền `ADMIN`. Luồng này quản lý sản phẩm, danh mục, khách hàng và các dữ liệu vận hành. Các thao tác ghi được kiểm soát bằng authorization và ghi nhận log để phục vụ audit.
+
+**3. Luồng xử lý bất đồng bộ (Order/Events)**  
+Các sự kiện cần xử lý nền được đưa vào SQS thay vì giữ request HTTP chờ hoàn tất. Worker chạy bằng ECS hoặc Lambda đọc queue, xử lý nghiệp vụ và cập nhật trạng thái. Cơ chế retry và Dead-Letter Queue giúp cô lập message lỗi và tăng độ tin cậy.
+
+#### 2.3. Lợi ích và hoàn vốn đầu tư (ROI)
+
+Giải pháp giúp giảm các điểm nghẽn vận hành bằng cách chuyển database sang dịch vụ managed, bổ sung connection pooling và loại bỏ sự phụ thuộc trực tiếp của cart vào một ECS task. Chi phí được kiểm soát thông qua Fargate sizing phù hợp, auto scaling, CloudWatch retention ngắn cho môi trường demo và VPC Endpoint để giảm lưu lượng qua NAT Gateway. Giá trị ROI nên được đánh giá theo tổng chi phí sở hữu (TCO), thời gian vận hành thủ công, downtime và khả năng phục vụ thêm người dùng thay vì chỉ tính chi phí hạ tầng. Với môi trường demo hoặc traffic thấp, có thể bắt đầu ở quy mô nhỏ và mở rộng theo số liệu thực tế.
 
 ---
 
 ### 3. Kiến trúc giải pháp
 
-#### Sơ đồ kiến trúc tổng thể
-![Serverless & Event-Driven Game Backend Architecture](/images/2-Proposal/serverless_game_backend_architecture.png)
+#### 3.1. Sơ đồ kiến trúc tổng thể
 
-#### Chi tiết 4 luồng xử lý chính trong kiến trúc:
+![Sơ đồ kiến trúc tổng thể](/images/2-Proposal/Sodokientruc.png)
 
-##### 1. Flow C — GitOps Deployment Loop (Quản lý triển khai)
-*   **C1 - C2**: Lập trình viên push mã nguồn và IaC (Infrastructure as Code) lên Git Repository. GitHub Actions kích hoạt pipeline xây dựng các gói phần mềm (Artifacts).
-*   **C3**: Pipeline gọi AWS CodeDeploy để thực hiện chuyển lưu lượng (Traffic Shift) sang phiên bản Lambda Alias mới và cập nhật AMI/Launch Template cho fleet EC2.
-*   **C4**: Đồng thời, pipeline upload các bản build client, patch và server bundle lên Amazon S3. Bucket này đóng vai trò là nguồn lưu trữ tập trung cho cả client và game server. Nếu có lỗi phát sinh, hệ thống thực hiện rollback tự động mà không làm ảnh hưởng đến luồng ghép trận đang chạy.
+> Sơ đồ trên minh họa kiến trúc mục tiêu: Client → CloudFront → ALB → ECS Fargate; ECS kết nối RDS MySQL, Redis và S3; các event được đưa vào SQS để worker xử lý; CloudWatch và CloudTrail cung cấp khả năng quan sát và audit; Terraform quản lý hạ tầng.
 
-##### 2. Flow A — Player Auth & Security (Xác thực & Phân phối Asset)
-*   **A1 - A2**: Người chơi đăng nhập qua ứng dụng client, Amazon Cognito User Pool xác thực và trả về JWT Token.
-*   **A3 - A4**: Client mang JWT đổi lấy IAM Temporary Credentials tại Amazon Cognito Identity Pool. Các credential này được phân quyền (scoped) theo prefix cụ thể trên S3, cho phép client tải trực tiếp các gói asset, patch và launcher file cần thiết.
-*   **A5**: JWT Token được gửi kèm trong header của các request ở Flow R để API Gateway Cognito Authorizer kiểm tra trước khi cho phép gọi tới Matchmaker Lambda.
+#### 3.2. Chi tiết các luồng xử lý chính trong kiến trúc
 
-##### 3. Flow R — Request & Matchmaking (Luồng ghép trận đồng bộ)
-*   **R1 - R2**: Client gửi yêu cầu ghép trận qua Amazon CloudFront (gắn AWS WAF) tới Amazon API Gateway.
-*   **R3 - R4**: Sau khi xác thực JWT thành công, Matchmaker Lambda nằm trong Private Subnet ghi trạng thái trận đấu (Match State) vào Amazon DynamoDB qua VPC Gateway Endpoint.
-*   **G1 - G2**: Matchmaker Lambda gọi EC2 Control Plane qua VPC Interface Endpoint riêng để yêu cầu warm instance từ Auto Scaling Group (ASG) Spot fleet, đồng thời mở một Security Group rule động cho IP của người chơi trong phòng.
-*   **G3 - G4**: EC2 Spot instance được khởi tạo trong Public Subnet. UserData script lúc boot sử dụng IAM Instance Profile để gọi S3 (Flow G4) tải server binary, config và patch mới nhất.
-*   **R5**: Lambda trả về địa chỉ IP công khai và Port của phòng game cho client. Client kết nối trực tiếp UDP/TCP tới Game Instance qua Internet Gateway mà không thông qua bất kỳ proxy hay load balancer trung gian nào.
+##### Luồng 1 — Người dùng và website
 
-##### 4. Flow E — Asynchronous Processing (Xử lý bất đồng bộ sau trận)
-*   **E1 - E3**: Khi trận đấu kết thúc, kết quả được ghi vào DynamoDB Single Table. DynamoDB Stream tự động kích hoạt Async Lambda nền để thu thập log post-match, xử lý dữ liệu và đẩy sang hệ thống phân tích (Analytics Store). Luồng này hoàn toàn bất đồng bộ, không ảnh hưởng tới độ trễ của luồng ghép trận.
+* **Truy cập hệ thống:** Browser gửi request tới CloudFront, sau đó request động được chuyển tới ALB và ECS Fargate. Cách triển khai này tạo lớp entry point thống nhất và cho phép scale nhiều task.
+* **Xử lý nghiệp vụ:** Spring MVC/JSP render giao diện phía server và Spring Security kiểm tra authentication/authorization. Hibernate/JPA thực hiện thao tác dữ liệu với RDS MySQL thông qua connection pool.
+* **Ảnh sản phẩm:** Ảnh được upload lên S3 và có thể phân phối qua CloudFront. Việc tách object storage khỏi container giúp giảm dung lượng image và tránh mất dữ liệu khi task được thay thế.
 
-#### Dịch vụ AWS sử dụng
--   **Amazon Cognito**: Quản lý đăng nhập (User Pool) và cấp phát IAM temporary credentials (Identity Pool).
--   **Amazon API Gateway & CloudFront + AWS WAF**: Điểm tiếp nhận request ghép trận, bảo vệ hạ tầng biên chống tấn công DDoS và ứng dụng web.
--   **AWS Lambda**: Thực hiện logic ghép trận (Matchmaker), triển khai phiên bản (Alias Versioning) và xử lý dữ liệu sau trận (Async Lambda).
--   **Amazon EC2 Spot Fleet (Graviton ARM64)**: Chạy máy chủ game phiên thực tế với chi phí tối ưu nhất.
--   **Amazon DynamoDB**: Lưu trữ trạng thái ghép trận (Single Table Design) và phát sự kiện qua DynamoDB Streams.
--   **Amazon S3**: Data Lake lưu trữ tập trung client build, patch file và game server bundle.
--   **VPC Endpoints**: Gateway Endpoint (cho DynamoDB) và Interface Endpoint (cho EC2 API) giúp Matchmaker Lambda trong Private Subnet giao tiếp hoàn toàn nội bộ với các dịch vụ AWS.
--   **AWS CodeDeploy & GitHub Actions**: Pipeline GitOps triển khai tự động hóa.
--   **AWS KMS & Amazon CloudWatch**: Mã hóa dữ liệu lưu trữ và giám sát toàn bộ hạ tầng.
+##### Luồng 2 — Quản trị Admin
+
+* **Xác thực và phân quyền:** Admin đăng nhập thông qua Spring Security và được kiểm tra role `ADMIN`. Các endpoint quản trị chỉ được phép truy cập khi authorization thành công.
+* **Quản lý dữ liệu:** Admin có thể tạo, sửa, xóa sản phẩm, danh mục và quản lý khách hàng. Các thao tác được lưu vào RDS và có thể được theo dõi thông qua application log.
+* **Upload hình ảnh:** Ảnh sản phẩm được lưu trên S3 thay vì filesystem của container. Điều này phù hợp với môi trường Fargate vì task có thể bị thay thế hoặc scale theo nhu cầu.
+
+##### Luồng 3 — Xử lý bất đồng bộ
+
+* **Đưa event vào queue:** Ứng dụng gửi các event nghiệp vụ cần xử lý nền tới SQS. Request chính không phải chờ worker hoàn tất toàn bộ tác vụ.
+* **Worker xử lý:** ECS worker hoặc Lambda đọc message, xử lý nghiệp vụ và cập nhật trạng thái vào RDS. Các message lỗi có thể được retry và chuyển sang Dead-Letter Queue sau số lần thất bại quy định.
+* **Giám sát:** Kết quả xử lý và lỗi được ghi nhận vào CloudWatch. Queue depth, error rate và processing latency có thể được dùng làm cơ sở để tạo alarm.
+
+#### 3.3. Các dịch vụ AWS mà dự án sử dụng
+
+##### Amazon ECS Fargate
+ECS Fargate chạy container Spring Boot mà không cần quản lý máy chủ EC2. Service có thể tăng hoặc giảm số task theo tải và phù hợp với mô hình deployment container.
+
+##### Application Load Balancer (ALB)
+ALB tiếp nhận HTTP/HTTPS traffic và phân phối request tới các ECS task khỏe mạnh. Health check giúp loại task không hoạt động khỏi luồng traffic.
+
+##### Amazon RDS for MySQL
+RDS cung cấp MySQL managed với backup, monitoring và các tùy chọn availability. Database nên đặt trong private subnet và security group chỉ cho phép ECS truy cập cổng 3306.
+
+##### Amazon S3
+S3 lưu trữ ảnh sản phẩm và các object tĩnh. Object storage tách biệt với lifecycle của container nên phù hợp với môi trường scale ngang.
+
+##### Amazon CloudFront
+CloudFront phân phối ảnh và nội dung cacheable từ edge location. Việc kết hợp CloudFront với S3 giúp giảm latency và giảm tải trực tiếp lên ứng dụng.
+
+##### Amazon SQS
+SQS làm message queue cho các event và tác vụ xử lý nền. Queue giúp tách request web khỏi worker và hỗ trợ retry khi consumer gặp lỗi.
+
+##### Amazon ElastiCache for Redis
+Redis có thể được dùng làm shared session store hoặc cache dữ liệu thường xuyên truy cập. Trong môi trường demo, Redis có thể chưa cần thiết và chỉ nên triển khai khi có nhu cầu thực tế.
+
+##### Amazon CloudWatch
+CloudWatch thu thập log, metric và alarm của ứng dụng cũng như hạ tầng. Đây là nền tảng chính để theo dõi CPU, memory, error rate, latency và queue depth.
+
+##### AWS CloudTrail
+CloudTrail ghi nhận các hoạt động API và thay đổi tài nguyên AWS. Dữ liệu audit giúp hỗ trợ điều tra sự cố và kiểm soát hoạt động quản trị.
+
+##### AWS Lambda
+Lambda có thể xử lý các event SQS nhẹ mà không cần duy trì worker server. Đây là lựa chọn phù hợp cho workload không liên tục và có thời gian xử lý ngắn.
+
+##### AWS NAT Gateway và VPC Endpoint
+NAT Gateway cung cấp outbound connectivity từ private subnet nhưng có chi phí cố định và chi phí dữ liệu. VPC Endpoint cho S3 và SQS có thể giảm traffic qua NAT và phù hợp với mục tiêu tối ưu chi phí.
+
+##### Terraform
+Terraform mô tả VPC, ECS, RDS, IAM, S3, SQS và các tài nguyên liên quan dưới dạng Infrastructure as Code. Điều này giúp môi trường có thể tái tạo, review và version-control.
 
 ---
 
-### 4. Triển khai kỹ thuật
+### 4. Kĩ thuật triển khai
 
-#### Các giai đoạn triển khai
-1.  **Giai đoạn 1: Nghiên cứu & Thiết kế kiến trúc (Tháng 1)**
-    *   Phân tích yêu cầu về độ trễ, lưu lượng băng thông và thiết kế mô hình Single Table DynamoDB.
-    *   Xây dựng mô hình phân vùng mạng VPC (Public Subnet cho EC2 Game Fleet, Private Subnet cho Matchmaker Lambda và VPC Endpoints).
-2.  **Giai đoạn 2: Xây dựng hạ tầng bằng mã IaC & GitOps Pipeline (Tháng 1 - Tháng 2)**
-    *   Đóng gói hạ tầng AWS bằng Terraform / AWS CDK.
-    *   Thiết lập GitHub Actions pipeline cho Flow C: tự động build, test và đẩy artifact lên S3 cũng như cấu hình CodeDeploy.
-3.  **Giai đoạn 3: Triển khai luồng Auth & Matchmaking (Tháng 2)**
-    *   Cấu hình Amazon Cognito User Pool & Identity Pool (Flow A).
-    *   Phát triển Matchmaker Lambda, cấu hình API Gateway Cognito Authorizer và thiết lập CloudFront + WAF (Flow R).
-4.  **Giai đoạn 4: Cấu hình Fleet EC2 Spot & VPC Endpoints (Tháng 2 - Tháng 3)**
-    *   Tạo Launch Template cho EC2 Spot Fleet trên kiến trúc Graviton ARM64 với UserData tự động pull server bundle từ S3.
-    *   Thiết lập VPC Gateway Endpoint cho DynamoDB và VPC Interface Endpoint cho EC2 API.
-    *   Phát triển cơ chế cấp phát và thu hồi Security Group rule động cho người chơi.
-5.  **Giai đoạn 5: Xử lý Asynchronous Analytics & Kiểm thử toàn diện (Tháng 3)**
-    *   Kích hoạt DynamoDB Streams và phát triển Async Lambda xử lý dữ liệu sau trận (Flow E).
-    *   Tiến hành kiểm thử tải (Load Testing), giả lập kịch bản người chơi tăng vọt và kiểm thử gián đoạn Spot Instance.
+#### 4.1. Các giai đoạn triển khai
 
-#### Yêu cầu kỹ thuật & Bảo mật
--   **Xác thực đa lớp**: Mọi request matchmaking đều yêu cầu JWT hợp lệ trước khi chạm tới ứng dụng.
--   **Bảo mật cổng động (Dynamic Port Security)**: Không mở sẵn cổng mạng công khai. Security Group rule chỉ được cấp phát theo IP người chơi trong thời gian diễn ra trận đấu và được thu hồi tự động ngay khi phiên chơi kết thúc.
--   **Giao tiếp nội bộ qua VPC Endpoint**: Matchmaker Lambda đặt hoàn toàn trong Private Subnet, kết nối DynamoDB và EC2 API qua đường ống riêng của AWS, không route dữ liệu ra Internet.
--   **Mã hóa dữ liệu**: Mã hóa dữ liệu lưu trữ (Data at rest) bằng AWS KMS và mã hóa dữ liệu truyền tải (Data in transit) bằng TLS 1.3.
+##### Giai đoạn 1 — Chuẩn hóa ứng dụng và hạ tầng nền
+
+* Chuyển datasource sang HikariCP, loại bỏ phụ thuộc vào `hibernate.hbm2ddl.auto=update` trong production và chuẩn hóa cấu hình qua environment variables/secrets.
+* Provision RDS MySQL, S3, SQS, ECS, IAM, networking và security group bằng Terraform.
+
+##### Giai đoạn 2 — Stateless và scale ngang
+
+* Chuyển cart khỏi `HttpSession` sang database hoặc Redis để các ECS task có thể phục vụ request độc lập.
+ Thiết lập ECS service, ALB health check, desired count và auto scaling theo CPU/request.
+
+##### Giai đoạn 3 — Tối ưu hiệu năng và chi phí
+
+* Đưa ảnh qua S3 + CloudFront và sử dụng VPC Endpoint cho S3/SQS khi phù hợp.
+* Thiết lập CloudWatch alarm, log retention và sizing Fargate/RDS theo traffic thực tế.
+
+##### Giai đoạn 4 — Mở rộng nghiệp vụ
+
+* Hoàn thiện order flow và worker xử lý bất đồng bộ qua SQS.
+* Chỉ tách Order/Inventory/Search thành service riêng khi metrics chứng minh cần scale hoặc triển khai độc lập.
+
+#### 4.2. Yêu cầu kỹ thuật và bảo mật
+
+##### 1. Identity và phân quyền
+Spring Security phải kiểm soát rõ `USER` và `ADMIN`, đồng thời áp dụng least privilege cho IAM role. Không lưu AWS access key hoặc database password trực tiếp trong source code.
+
+##### 2. Bảo mật dữ liệu
+RDS nên nằm trong private subnet và chỉ nhận kết nối từ security group của ECS. Secret được quản lý bằng AWS Secrets Manager và dữ liệu truyền qua HTTPS/TLS.
+
+##### 3. Tối ưu hiệu suất
+HikariCP phải được cấu hình phù hợp với số lượng ECS task và giới hạn connection của RDS. Cache chỉ nên được bổ sung sau khi có metric chứng minh database hoặc request latency là bottleneck.
+
+##### 4. Giám sát và nhật ký
+CloudWatch được dùng để tập trung log, metric và alarm, trong khi CloudTrail phục vụ audit hoạt động AWS. Log cần tránh chứa password, session identifier hoặc dữ liệu nhạy cảm của người dùng.
 
 ---
 
-### 5. Lộ trình & Mốc triển khai
+### 5. Lộ trình và mốc triển khai
 
-```
-+-----------------------------------------------------------------------------------+
-| Tháng 1: Nghiên cứu & Thiết kế hạ tầng IaC                                        |
-|   - Thiết kế mô hình VPC, Subnet, Security Groups                                 |
-|   - Định nghĩa bài toán Single Table DynamoDB & kiến trúc Serverless               |
-+-----------------------------------------------------------------------------------+
-                                  |
-                                  v
-+-----------------------------------------------------------------------------------+
-| Tháng 2: Triển khai Auth, Matchmaking & Fleet EC2 Spot                            |
-|   - Cấu hình Cognito User Pool / Identity Pool & S3 Scoped Credentials            |
-|   - Phát triển API Gateway, Matchmaker Lambda & VPC Endpoints                     |
-|   - Xây dựng Launch Template cho EC2 Spot Fleet (Graviton ARM64)                  |
-+-----------------------------------------------------------------------------------+
-                                  |
-                                  v
-+-----------------------------------------------------------------------------------+
-| Tháng 3: Tự động hóa GitOps, Async Processing & Kiểm thử                          |
-|   - Xây dựng GitHub Actions + CodeDeploy Pipeline                                 |
-|   - Triển khai DynamoDB Streams + Async Lambda thu thập Analytics                 |
-|   - Kiểm thử tải (Load test), tối ưu chi phí & đóng gói báo cáo                   |
-+-----------------------------------------------------------------------------------+
-```
+| Mốc | Thời gian dự kiến | Kết quả chính |
+|---|---|---|
+| M1 — Chuẩn bị | Tuần 1–2 | Chuẩn hóa Spring Boot, HikariCP, Docker và Terraform |
+| M2 — Managed Database | Tuần 3–4 | RDS MySQL, Secrets Manager, private networking |
+| M3 — ECS Production-ready | Tuần 5–6 | ECS Fargate, ALB, health check, autoscaling |
+| M4 — Storage & Async | Tuần 7–8 | S3/CloudFront, SQS và worker |
+| M5 — Observability | Tuần 9–10 | CloudWatch, CloudTrail, alarms, log retention |
+| M6 — Tối ưu & đánh giá | Tuần 11–12 | Load test, cost review, security review và tài liệu hóa |
+| M7 — Mở rộng | Sau tháng 8 | Redis, read replica hoặc tách service khi có số liệu chứng minh |
 
 ---
 
 ### 6. Ước tính ngân sách
 
-Nhờ thiết kế loại bỏ NAT Gateway, loại bỏ Load Balancer thường trực và tận dụng EC2 Spot trên nền tảng Graviton ARM64, chi phí hạ tầng được giảm thiểu tối đa:
+> Các con số dưới đây là **ước tính tham khảo** cho môi trường nhỏ/demo hoặc production nhỏ, không phải báo giá cố định. Chi phí thực tế phụ thuộc Region, loại instance, lưu lượng, request, storage, thời gian chạy và cấu hình backup.
 
 | Dịch vụ AWS | Cấu hình / Quy mô ước tính | Chi phí ước tính / Tháng (USD) |
-| :--- | :--- | :--- |
-| **AWS Lambda** (Matchmaker & Async) | 1,000,000 requests/tháng, 512MB RAM | ~$0.20 |
-| **Amazon API Gateway** | 1,000,000 HTTP requests/tháng | ~$1.00 |
-| **Amazon DynamoDB** | On-Demand Mode (Write/Read capacity units) | ~$2.50 |
-| **Amazon Cognito** | < 10,000 MAU (Monthly Active Users) | **Miễn phí** (Free Tier) |
-| **Amazon S3** | 20GB lưu trữ Asset, Client Build, Patch & Server Bundle | ~$0.46 |
-| **Amazon CloudFront & AWS WAF** | 50GB Egress, WAF Basic Rules | ~$3.50 |
-| **Amazon EC2 Spot Fleet** (Graviton ARM64) | `c6g.large` Spot Instance (~0.02 USD/giờ), chạy trung bình 100 giờ trận đấu/tháng | ~$2.00 |
-| **VPC Endpoints** | Gateway Endpoint (Miễn phí) + Interface Endpoint | ~$7.20 |
-| **Tổng chi phí ước tính** | **Hạ tầng Serverless & Event-Driven Game Backend** | **~$16.86 USD / Tháng** |
+|---|---|---:|
+| ECS Fargate | Web + Worker, khoảng 2 task nhỏ | ~20–80 |
+| RDS MySQL | Single-AZ, instance nhỏ | ~20–50 |
+| S3 + CloudFront | Khoảng 50 GB storage + traffic thấp | ~10–30 |
+| SQS | Khoảng 1 triệu request/tháng | ~1–5 |
+| ElastiCache Redis | Node nhỏ, chỉ khi cần | ~15–40 |
+| CloudWatch + CloudTrail | Log/metrics quy mô nhỏ | ~10–25 |
+| NAT Gateway | 1 NAT Gateway | ~45–60+ |
+| **Tổng tham khảo** | Môi trường nhỏ, traffic thấp | **~121–290+** |
 
-> [!TIP]
-> **Điểm tối ưu chi phí vượt trội**:
-> 1. Không dùng NAT Gateway (tiết kiệm ~32 USD/tháng).
-> 2. Không dùng Application Load Balancer thường trực (tiết kiệm ~20 USD/tháng).
-> 3. EC2 Spot Graviton ARM64 giảm 70-80% so với EC2 On-Demand x86.
-> 4. Server bundle lưu tập trung trên S3 giúp giữ AMI mỏng, không tốn chi phí lưu trữ snapshot AMI lớn.
+Đối với development/demo, có thể giảm đáng kể chi phí bằng cách chạy một ECS task, dùng RDS nhỏ, retention CloudWatch 7 ngày, không triển khai Redis khi chưa cần và tắt các môi trường không sử dụng ngoài giờ.
 
 ---
 
 ### 7. Đánh giá rủi ro
 
-#### Ma trận rủi ro & Chiến lược giảm thiểu
+#### 7.1. Ma trận rủi ro và chiến lược giảm thiểu
 
 | Rủi ro tiềm ẩn | Mức độ ảnh hưởng | Xác suất | Chiến lược giảm thiểu |
-| :--- | :---: | :---: | :--- |
-| **Thu hồi EC2 Spot Instance** (Spot Interruption) | Cao | Trung bình | Sử dụng Auto Scaling Group với nhiều Spot pools (Multi-AZ / Multi-Instance types). Khi nhận thông báo thu hồi trước 2 phút, ASG tự động bổ sung instance mới. |
-| **Lượng truy cập tăng vọt** (Traffic Spike) | Trung bình | Trung bình | Các thành phần Metagame (Cognito, API Gateway, Lambda, DynamoDB) là Serverless thuần túy, tự động mở rộng (auto-scale) tức thì theo lượng request. |
-| **Rủi ro rò rỉ hoặc tấn công mạng** | Cao | Thấp | Kiểm tra JWT token tại API Gateway. Thu hồi Security Group rule ngay khi hết trận. Matchmaker Lambda và kết nối DB nằm hoàn toàn trong Private Subnet qua VPC Endpoints. |
-| **Lỗi bản build trong quá trình Cập nhật** | Trung bình | Thấp | GitOps Pipeline hỗ trợ rollback tự động phiên bản Lambda Alias và Launch Template mà không làm gián đoạn các luồng đang chạy. |
+|---|---|---|---|
+| RDS quá tải hoặc cạn connection | Cao | Trung bình | Dùng HikariCP, giới hạn pool, theo dõi RDS metrics và load test |
+| Mất dữ liệu hoặc lỗi backup | Cao | Thấp | Automated backup, retention phù hợp, kiểm tra restore định kỳ |
+| Session/cart không nhất quán khi scale | Cao | Trung bình | Lưu cart theo user trong DB hoặc dùng Redis session |
+| Chi phí NAT Gateway tăng | Trung bình | Trung bình | VPC Endpoint cho S3/SQS, theo dõi Data Processing và Cost Explorer |
+| ECS task lỗi khi traffic tăng | Cao | Trung bình | ALB health check, autoscaling, CloudWatch alarm |
+| Lộ secret hoặc credential | Rất cao | Thấp | Secrets Manager, IAM least privilege, không hard-code secret |
+| Message SQS xử lý thất bại | Trung bình | Trung bình | Retry policy, visibility timeout và Dead-Letter Queue |
+| `hibernate.hbm2ddl.auto=update` gây thay đổi schema ngoài kiểm soát | Cao | Trung bình | Dùng migration tool như Flyway/Liquibase trong production |
+| Phức tạp hóa do microservices quá sớm | Trung bình | Trung bình | Duy trì modular monolith và chỉ tách service dựa trên metrics |
 
 ---
 
 ### 8. Kết quả kỳ vọng
 
-*   **Cải tiến kỹ thuật đột phá**: Xây dựng thành công hệ thống Game Backend kiến trúc Serverless & Event-Driven có khả năng mở rộng quy mô tức thì, độ trễ ghép trận cực thấp, đáp ứng tiêu chuẩn vận hành sản xuất (Production-Ready).
-*   **Tối ưu hóa chi phí triệt để**: Chứng minh mô hình chỉ chi trả cho thời gian dùng thực tế (Pay-as-you-go), giúp tiết kiệm hơn 75% chi phí vận hành so với mô hình server 24/7 truyền thống.
-*   **Giá trị dài hạn**: Cung cấp một **Mẫu kiến trúc chuẩn (Architectural Blueprint)** cho các dự án phát triển Game Live-Service trên AWS, có thể tái sử dụng và mở rộng cho nhiều thể loại game khác nhau trong tương lai.
+#### 8.1. Cải tiến kỹ thuật đột phá
+
+Kiến trúc chuyển từ mô hình phụ thuộc vào database và session thủ công sang nền tảng managed, stateless và có khả năng scale ngang. ECS Fargate, RDS, S3, SQS và CloudWatch tạo thành các lớp hạ tầng có trách nhiệm rõ ràng, giảm sự phụ thuộc vào máy chủ và thao tác thủ công. Việc chuẩn hóa Terraform, connection pooling, asynchronous processing và observability tạo nền tảng để hệ thống phát triển mà không phải tái cấu trúc toàn bộ kiến trúc.
+
+#### 8.2. Tối ưu hóa chi phí triệt để
+
+Chi phí được kiểm soát bằng cách lựa chọn Fargate/RDS theo workload thực tế, giới hạn log retention và tránh triển khai Redis hoặc các dịch vụ nâng cao khi chưa có nhu cầu. VPC Endpoint cho các dịch vụ AWS phù hợp có thể giảm lượng traffic đi qua NAT Gateway. Auto Scaling giúp tài nguyên tăng theo nhu cầu thay vì duy trì cấu hình lớn cố định.
+
+#### 8.3. Giá trị dài hạn
+
+Kiến trúc tạo nền tảng để mở rộng số lượng người dùng, sản phẩm và transaction mà vẫn giữ mô hình vận hành tương đối đơn giản. Khi hệ thống tăng trưởng, có thể bổ sung Redis, read replica, worker riêng hoặc Search service mà không cần chuyển đổi toàn bộ ứng dụng. Quan trọng hơn, modular monolith giúp dự án giữ tốc độ phát triển trong giai đoạn đầu và chỉ trả thêm chi phí vận hành khi có nhu cầu scale thực tế.
+
+---
+
+## Kết luận
+
+Kiến trúc mục tiêu phù hợp cho dự án là **Spring Boot modular monolith trên ECS Fargate, RDS MySQL làm database chính, S3/CloudFront cho ảnh, SQS cho xử lý bất đồng bộ và CloudWatch/CloudTrail cho observability và audit**. Redis được xem là thành phần bổ sung khi hệ thống cần shared session hoặc cache, thay vì mặc định triển khai ngay từ đầu. Microservices chỉ nên được áp dụng khi có bằng chứng về nhu cầu scale độc lập, ownership hoặc vòng đời triển khai riêng. Cách tiếp cận theo từng giai đoạn giúp dự án cân bằng giữa khả năng mở rộng, bảo mật, độ phức tạp vận hành và chi phí.
+
+## Phụ lục — Nguyên tắc kiến trúc
+
+1. **Managed first:** ưu tiên RDS, S3, SQS và Fargate thay vì tự quản lý máy chủ.
+2. **Stateless first:** ECS task không giữ trạng thái nghiệp vụ quan trọng trong local filesystem hoặc session cục bộ.
+3. **Scale from evidence:** chỉ thêm Redis, read replica hoặc microservices khi metrics cho thấy nhu cầu.
+4. **Security by default:** private subnet, least-privilege IAM, Secrets Manager, HTTPS và audit logging.
+5. **Infrastructure as Code:** Terraform là nguồn khai báo chuẩn cho các tài nguyên AWS.

@@ -1,28 +1,23 @@
----
-title: "Chuẩn bị môi trường & Chọn Region"
-date: 2026-07-21
+﻿---
+title: "5.1. Chuẩn bị môi trường, AWS Region và công cụ triển khai"
+date: 2026-09-25
 weight: 1
 chapter: false
 pre: " <b> 5.1. </b> "
-aliases:
-  - /5-workshop/5.1-serverless-game-backend/
-  - /5-workshop/5.1-workshop-overview/
-  - /5-workshop/5.1-serverless-game-backend/5.1.1-prerequiste/
-  - /5-workshop/5.1-Serverless-Game-Backend/5.1.1-prerequiste/
 ---
 
-# 5.1. Chuẩn bị Môi trường & Thiết lập Region
 
-### Yêu cầu tiên quyết:
-1.  **Tài khoản AWS (AWS Account)** có quyền quản trị (Administrator Access) hoặc IAM User có đầy đủ quyền thao tác trên Cognito, DynamoDB, Lambda, API Gateway, EC2, S3, CodeDeploy và IAM.
-2.  **Trình duyệt web** (Google Chrome, Firefox, Safari hoặc Microsoft Edge).
-3.  **Client/Kịch bản kiểm thử**: Postman, cURL hoặc ứng dụng Node.js để gửi request API.
+Cài Java 25, Maven, Docker, AWS CLI và Terraform. Dùng một Region thống nhất, ví dụ ap-southeast-1. Endpoint /actuator/health phải hoạt động. Lưu password RDS trong Secrets Manager/SSM, giữ RDS và Redis ở private subnet, tag resource với Project, Environment và ManagedBy=Terraform.
 
----
+![AWS Region và VPC console](/images/5-Workshop/5.2-Prerequisite/region.png)
 
-### Bước 1: Đăng nhập Console và Chuyển Region
-1. Truy cập [AWS Management Console](https://console.aws.amazon.com/) và đăng nhập tài khoản của bạn.
-2. Trên góc trên bên phải thanh điều hướng, chọn Region **Asia Pacific (Singapore) - ap-southeast-1**.
+## Kiểm tra
 
-![Chuyển Region sang Singapore](/images/5-Workshop/img_A/image1.png)
+``bash
+terraform fmt -check
+terraform validate
+terraform plan
+``
+
+
 
