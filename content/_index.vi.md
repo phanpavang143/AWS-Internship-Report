@@ -6,6 +6,9 @@ chapter: false
 ---
 
 # Báo cáo thực tập AWS
+### Tải báo cáo
+[Tải bản báo cáo thực tập đầy đủ (DOCX)](/Ba%CC%81o%20Ca%CC%81o%20Thu%CC%9B%CC%A3c%20Ta%CC%A3%CC%82p.docx)
+
 ### Thông tin sinh viên:
 &emsp; **Họ và tên:** Phàn Pà Vảng
 
