@@ -6,13 +6,57 @@ chapter: false
 pre: " <b> 5.6.4. </b> "
 ---
 
+## Bước 1: Tạo NAT Gateway
+Vào: AWS Console → VPC → NAT Gateways → Create NAT Gateway
+●Chọn Public Subnet.
+●Connectivity type: Public.
+●Gán Elastic IP.
+Private Subnet
+      │
+      ▼
+ NAT Gateway
+      │
+      ▼
+ Internet Gateway
+      │
+      ▼
+  Internet
 
-Xóa workload trước, sau đó xóa interface endpoint, security group liên quan, NAT Gateway và Elastic IP không dùng.
+## Bước 2: Cấu hình Route Table cho Private Subnet
+Vào: VPC → Route Tables → Private Route Table → Routes
+Thêm:
+0.0.0.0/0
+    │
+    ▼
+NAT Gateway
+Bước 3: Tạo VPC Endpoint cho S3
+Vào: VPC → Endpoints → Create endpoint
+●Service category: AWS services
+●Service: S3
+●Type: Gateway
+●Chọn VPC webdemo-vpc.
+●Chọn Route Table của Private Subnet.
+![AWS cleanup illustration](/images/5-Workshop/5.6-Cleanup/EntpointST.jpg)
 
-![AWS cleanup illustration](/images/5-Workshop/5.6-Cleanup/delete-s3.png)
+ECS Fargate
+     │
+     ▼
+Private Subnet
+     │
+     ▼
+VPC Endpoint
+     │
+     ▼
+     S3
 
-``bash
-terraform plan -destroy
-terraform destroy
-``
+## Bước 4: Kiểm tra kết nối
+Kiểm tra ECS có thể:
+●Truy cập Internet thông qua NAT Gateway.
+●Truy cập S3 thông qua VPC Endpoint.
+●Không cần Public IP cho ECS Task.
+                ┌──► NAT Gateway ──► Internet
+ECS Fargate ─────┤
+                 └──► VPC Endpoint ──► S3
 
+## Kết quả
+NAT Gateway cung cấp đường ra Internet cho các tài nguyên trong Private Subnet, trong khi VPC Endpoint cho phép ECS truy cập S3 thông qua mạng AWS mà không cần đi qua Internet. Cách triển khai này giúp WebDemo giữ ECS trong Private Subnet và tăng tính an toàn cho kiến trúc.

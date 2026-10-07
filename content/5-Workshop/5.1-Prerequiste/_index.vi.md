@@ -7,17 +7,32 @@ pre: " <b> 5.1. </b> "
 ---
 
 
-Cài Java 25, Maven, Docker, AWS CLI và Terraform. Dùng một Region thống nhất, ví dụ ap-southeast-1. Endpoint /actuator/health phải hoạt động. Lưu password RDS trong Secrets Manager/SSM, giữ RDS và Redis ở private subnet, tag resource với Project, Environment và ManagedBy=Terraform.
+## 1. Chuẩn bị AWS Account
+Đăng nhập AWS Management Console và đảm bảo tài khoản có quyền sử dụng các dịch vụ cần thiết.
 
-![AWS Region và VPC console](/images/5-Workshop/5.2-Prerequisite/region.png)
+## 2. Chọn AWS Region
+Ở góc phải AWS Console, chọn:Asia Pacific (Singapore) , ap-southeast-1
+![Chọn Region ](/images/5-Workshop/5.1-Workshop-overview/ChonRegion.jpg)
 
-## Kiểm tra
+## 3. Chuẩn bị Java và Maven
+Cài Java 25 và Maven để build ứng dụng Spring Boot. Kiểm tra: java -version, mvn -version
+## 4. Chuẩn bị Git và Source Code
+Cài Git, clone project WebDemo và kiểm tra source code: git clone <repository>, cd WebDemo
 
-``bash
-terraform fmt -check
-terraform validate
-terraform plan
-``
+## 5. Cài đặt Docker
+Cài Docker Desktop và kiểm tra: docker --version
+Build thử Docker Image: docker build -t webdemo:latest .
 
+## 6. Cấu hình AWS CLI
+Cài AWS CLI và cấu hình: aws configure
+Chọn Region: ap-southeast-1
+Kiểm tra kết nối: aws sts get-caller-identity
+
+## 7. Cài đặt Terraform
+Cài Terraform và kiểm tra: terraform version
+Khởi tạo: terraform init
+## 8. Kiểm tra toàn bộ môi trường
+Đảm bảo WebDemo chạy được trên local, Docker hoạt động, AWS CLI kết nối thành công và Terraform khởi tạo thành công trước khi bắt đầu tạo hạ tầng AWS.
+![Engineer ](/images/5-Workshop/5.1-Workshop-overview/Engineer.jpg)
 
 
